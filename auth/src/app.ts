@@ -2,7 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { NotFoundError } from '@schoolable/common';
+
+import { NotFoundError, errorHandler } from '@schoolable/common';
+
 
 const app = express();
 
@@ -20,3 +22,5 @@ app.all('*', async () => {
 });
 
 app.use(errorHandler);
+
+export { app }
