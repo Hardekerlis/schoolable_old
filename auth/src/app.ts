@@ -2,8 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-
-console.log("ole är bäst");
+import { NotFoundError } from '@schoolable/common';
 
 const app = express();
 
