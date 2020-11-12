@@ -2,6 +2,16 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import request from 'supertest';
 
+import { app } from '../app';
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      getAuthCookie(): Promise<string[]>
+    }
+  }
+}
+
 // The tests timesout if the default timout interval is not changed
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 
@@ -34,3 +44,18 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close()
 });
+
+// Creates a valid cookie for authentication in tests
+global.getAuthCookie = async () => {
+  const email = 'test@test.com';
+  const password = 'password';
+
+  const res = await request(app)
+    .post('/api/users/signup')
+    .send({ email, password })
+    .expect(201);
+
+  const cookie = res.get('Set-Cookie');
+
+  return cookie;
+};
