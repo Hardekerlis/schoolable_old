@@ -9,7 +9,7 @@ class NotFoundError extends CustomError {
     Object.setPrototypeOf(this, NotFoundError);
   };
 
-  serializeError() {
+  serializeErrors() {
     return [{ message: 'Not found' }];
   };
 };
