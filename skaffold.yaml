@@ -6,9 +6,9 @@ deploy:
       - ./infra/k8s
 build:
   googleCloudBuild:
-    projectId: ticketing-dev-292319
+    projectId: schoolable-295414
   artifacts:
-    - image: us.gcr.io/ticketing-dev-292319/auth
+    - image: us.gcr.io/schoolable-295414/auth
       kaniko:
           dockerfile: Dockerfile
           cache: {}

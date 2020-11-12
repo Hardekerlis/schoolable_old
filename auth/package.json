@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "description": "Auth service for schoolable",
   "main": "index.js",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
   "scripts": {
     "start": "nodemon ./src/index.ts",
     "test": "jest --watchAll --no-cache",
@@ -29,5 +36,18 @@
     "mongodb-memory-server": "^6.9.2",
     "supertest": "^6.0.1",
     "ts-jest": "^26.4.4"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "downloadDir": "/path/to/mongodb/binaries",
+      "platform": "linux",
+      "arch": "x64",
+      "version": "3",
+      "debug": "0",
+      "downloadMirror": "url",
+      "disablePostinstall": "1",
+      "systemBinary": "/usr/local/bin/mongod",
+      "md5Check": "1"
+    }
   }
 }
