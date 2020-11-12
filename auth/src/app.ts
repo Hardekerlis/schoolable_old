@@ -6,8 +6,6 @@ import { NotFoundError } from '@schoolable/common';
 
 const app = express();
 
-console.log('12321312');
-
 app.set('trust proxy', true);
 app.use(json());
 console.log(process.env.NODE_ENV);
@@ -20,3 +18,5 @@ app.use(cookieSession({
 app.all('*', async () => {
   throw new NotFoundError();
 });
+
+app.use(errorHandler);
