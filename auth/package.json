@@ -5,6 +5,7 @@
   "main": "index.js",
   "jest": {
     "preset": "ts-jest",
+    "verbose": true,
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/test/setup.ts"
