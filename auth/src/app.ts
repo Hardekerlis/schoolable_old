@@ -2,7 +2,6 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-console.log("ole är bäst");
 const app = express();
 
 app.set('trust proxy', true);
