@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 
 import { NotFoundError, errorHandler } from '@schoolable/common';
 
+import { registerRouter } from './routes/routes-collection';
+
 
 const app = express();
 
@@ -16,6 +18,7 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test'
 }));
 
+app.use(registerRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
