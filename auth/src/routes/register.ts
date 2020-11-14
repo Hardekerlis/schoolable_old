@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { validateRequest, requireAdminAuth } from '@schoolable/common';
 
+import { User } from '../models/user';
+
 const router = express.Router();
 
 router.post(
@@ -18,6 +20,14 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
+    // Check if the email already is registered
+
+    // Hashing is done via mongoose in models/user.ts
+    // Save user
+
+    // Generate JWT
+
+    // Store it on session Object
     res.send();
   }
 );
