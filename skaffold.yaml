@@ -3,7 +3,7 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s
+      - ./infra/k8s/*
 build:
   googleCloudBuild:
     projectId: schoolable-295414

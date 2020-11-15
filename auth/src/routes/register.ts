@@ -28,7 +28,11 @@ router.post(
     // Generate JWT
 
     // Store it on session Object
-    res.send();
+
+    // Respond with 201 and user
+
+    console.log('assd')
+    res.send({ success: true });
   }
 );
 
