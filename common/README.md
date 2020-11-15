@@ -12,8 +12,8 @@
   * [Not-found](#not-found)
   * [Not-authorized](#not-authorized)
 
-### Middlewares<a name="middlewares"></a>:
-<u>**current-user<a name="current-user"></a>**</u> </br>
+# Middlewares<a name="middlewares"></a>:
+### <u>**current-user<a name="current-user"></a>**</u> </br>
 Current user checks if there is a JWT in the session object from the cookie-session library. </br>
 If there isn't a session it calls the **next** function. </br>
 If there is a session it tries to parse the JWT to get the user payload, which is anything included in the JWT.
@@ -66,7 +66,7 @@ app.get('/api/currentUser', currentUser, (req, res) => {
 ```
 [Go back to top](#top)</br>
 
-<u>**Validate-request<a name="validate-request"></a>**</u> </br>
+### <u>**Validate-request<a name="validate-request"></a>**</u> </br>
 Validate request checks if there are any errors from the express-validator library. </br>
 If there are any errors it will throw a [RequestValidationError](#request-validation) with the errors in an array.
 
@@ -118,7 +118,7 @@ app.post(
 ```
 [Go back to top](#top)</br>
 
-<u>**Require-auth<a name="require-auth"></a>**</u></br>
+### <u>**Require-auth<a name="require-auth"></a>**</u></br>
 The require auth middlewares are all very similar.</br>
 There are:
 * requireAdminAuth
@@ -145,7 +145,7 @@ app.post(
 ```
 [Go back to top](#top)</br>
 
-<u>**Error-handler<a name="error-handler"></a>**</u></br>
+### <u>**Error-handler<a name="error-handler"></a>**</u></br>
 The error handler middleware should be invoked last in the app.ts file of each service.
 The middleware checks if any errors thrown is an instance of the [CustomError](#custom-error) class if it is. It throws the custom error we have invoked. Otherwise it logs the error to the console and returns 'Unexpected error'.
 
@@ -172,9 +172,9 @@ export const errorHandler = (
 ```
 [Go back to top](#top)</br>
 
-## Errors<a name="errors"></a>:
+# Errors<a name="errors"></a>:
 [Go back to top](#top)</br>
-<u>**Custom-error<a name="custom-error"></a>**</u> </br>
+### <u>**Custom-error<a name="custom-error"></a>**</u> </br>
 The CustomError class extends the native Error class from node.</br>
 When extending the CustomError class it needs three values from its child class.</br>
 **Important!** When writing new custom errors please put them here in the common folder and publish it to npmjs.org.</br>
@@ -216,7 +216,7 @@ When extending the CustomError class it needs three values from its child class.
 ```
 [Go back to top](#top)</br>
 
-<u>**Request-validation<a name="request-validation"></a>**</u> </br>
+### <u>**Request-validation<a name="request-validation"></a>**</u> </br>
 The request validation error returns a status code of 400 and an error message with 'Invalid request parameters'.
 
 This is to be used with the express-validator library. If the supplied inputs aren't valid the application should throw this custom error.
@@ -249,7 +249,7 @@ throw new ValidationError();
 ```
 [Go back to top](#top)</br>
 
-<u>**Database-connection<a name="database-connection"></a>**</u> </br>
+### <u>**Database-connection<a name="database-connection"></a>**</u> </br>
 The DatabaseConnectionError class throws an error with the status code 500. </br>
 The reason supplied is 'Database connection error'.</br>
 This should only be used once when trying to connect to the database.
@@ -282,7 +282,7 @@ throw new DatabaseConnectionError();
 ```
 [Go back to top](#top)</br>
 
-<u>**Not-found<a name="not-found"></a>**</u> </br>
+### <u>**Not-found<a name="not-found"></a>**</u> </br>
 This is just a basic 404 error. This is throw when the request path/url can't be found.
 This should only be used once in every service. Like this:
 ```
@@ -335,7 +335,7 @@ app.all('*', () => {
 ```
 [Go back to top](#top)</br>
 
-<u>**Not-authorized<a name="not-authorized"></a>**</u> </br>
+### <u>**Not-authorized<a name="not-authorized"></a>**</u> </br>
 This custom error should be used when a user is trying to access something they don't have access to.
 
 Source:
