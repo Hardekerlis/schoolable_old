@@ -1,6 +1,18 @@
 ## This is the common library for schoolable
 
-### Middlewares:
+* [Middlewares](#middlewares)
+  * [Current-user](#current-user)
+  * [validate-request](#validate-request)
+  * [Require-auth](#require-auth)
+  * [Error-hanlder](#error-handler)
+* [Errors](#errors)
+  * [Custom-error](#custom-error)
+  * [Request-validation](#request-validation)
+  * [Database-connection](#database-connection)
+  * [Not-found](#not-found)
+  * [Not-authorized](#not-authorized)
+
+### Middlewares<a name="middlewares"></>:
 <u>**current-user<a name="current-user"></a>**</u> </br>
 Current user checks if there is a JWT in the session object from the cookie-session library. </br>
 If there isn't a session it calls the **next** function. </br>
@@ -54,7 +66,7 @@ app.get('/api/currentUser', currentUser, (req, res) => {
 ```
 
 
-<u>**validate-request<a name="validate-request"></a>**</u> </br>
+<u>**Validate-request<a name="validate-request"></a>**</u> </br>
 Validate request checks if there are any errors from the express-validator library. </br>
 If there are any errors it will throw a [RequestValidationError](#request-validation) with the errors in an array.
 
@@ -157,7 +169,7 @@ export const errorHandler = (
 }
 ```
 
-## Errors:
+## Errors<a name="errors"></a>:
 <u>**Custom-error<a name="custom-error"></a>**</u> </br>
 The CustomError class extends the native Error class from node.</br>
 When extending the CustomError class it needs three values from its child class.</br>
