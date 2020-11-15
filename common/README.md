@@ -1,4 +1,4 @@
-## This is the common library for schoolable
+## This is the common library for schoolable<a name="top"></a>
 
 * [Middlewares](#middlewares)
   * [Current-user](#current-user)
@@ -64,7 +64,7 @@ app.get('/api/currentUser', currentUser, (req, res) => {
   res.send({ currentUser: currentUser })
 });
 ```
-
+[Go back to top](#top)</br>
 
 <u>**Validate-request<a name="validate-request"></a>**</u> </br>
 Validate request checks if there are any errors from the express-validator library. </br>
@@ -116,6 +116,7 @@ app.post(
   }
 )
 ```
+[Go back to top](#top)</br>
 
 <u>**Require-auth<a name="require-auth"></a>**</u></br>
 The require auth middlewares are all very similar.</br>
@@ -142,6 +143,7 @@ app.post(
   };
 );
 ```
+[Go back to top](#top)</br>
 
 <u>**Error-handler<a name="error-handler"></a>**</u></br>
 The error handler middleware should be invoked last in the app.ts file of each service.
@@ -168,8 +170,10 @@ export const errorHandler = (
   });
 }
 ```
+[Go back to top](#top)</br>
 
 ## Errors<a name="errors"></a>:
+[Go back to top](#top)</br>
 <u>**Custom-error<a name="custom-error"></a>**</u> </br>
 The CustomError class extends the native Error class from node.</br>
 When extending the CustomError class it needs three values from its child class.</br>
@@ -210,6 +214,7 @@ When extending the CustomError class it needs three values from its child class.
     }
   }
 ```
+[Go back to top](#top)</br>
 
 <u>**Request-validation<a name="request-validation"></a>**</u> </br>
 The request validation error returns a status code of 400 and an error message with 'Invalid request parameters'.
@@ -242,6 +247,7 @@ Example:
 ```
 throw new ValidationError();
 ```
+[Go back to top](#top)</br>
 
 <u>**Database-connection<a name="database-connection"></a>**</u> </br>
 The DatabaseConnectionError class throws an error with the status code 500. </br>
@@ -274,6 +280,7 @@ example:
 ```
 throw new DatabaseConnectionError();
 ```
+[Go back to top](#top)</br>
 
 <u>**Not-found<a name="not-found"></a>**</u> </br>
 This is just a basic 404 error. This is throw when the request path/url can't be found.
@@ -326,6 +333,7 @@ app.all('*', () => {
   throw new NotFoundError();
 })
 ```
+[Go back to top](#top)</br>
 
 <u>**Not-authorized<a name="not-authorized"></a>**</u> </br>
 This custom error should be used when a user is trying to access something they don't have access to.
@@ -361,3 +369,4 @@ app.get(
   };
 );
 ```
+[Go back to top](#top)</br>
