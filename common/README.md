@@ -12,7 +12,7 @@
   * [Not-found](#not-found)
   * [Not-authorized](#not-authorized)
 
-### Middlewares<a name="middlewares"></>:
+### Middlewares<a name="middlewares"></a>:
 <u>**current-user<a name="current-user"></a>**</u> </br>
 Current user checks if there is a JWT in the session object from the cookie-session library. </br>
 If there isn't a session it calls the **next** function. </br>
