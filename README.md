@@ -1,3 +1,5 @@
+## [Click here to come to the Schoolable wiki](https://github.com/Hardekerlis/schoolable/wiki/)
+
 Use npm ci instead of npm install when downloading dependencies
 npm install has unexpected behavior regarding package-lock.json files
 and npm ci prevents merge errors
