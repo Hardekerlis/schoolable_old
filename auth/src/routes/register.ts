@@ -20,7 +20,15 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
     // Check if the email already is registered
+
+    const alreadyExists = User.findOne({ email })
+
+    if(alreadyExists) {
+      return
+    }
 
     // Hashing is done via mongoose in models/user.ts
     // Save user
