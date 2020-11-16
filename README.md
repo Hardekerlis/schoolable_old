@@ -10,3 +10,6 @@ Look into usage of Helm in cluster. Should we use it?
 
 Intersting. Fixed timeout issues with skaffold dev
 https://stackoverflow.com/questions/61365202/nginx-ingress-service-ingress-nginx-controller-admission-not-found
+
+
+gcloud container clusters get-credentials $CLUSTER_NAME
