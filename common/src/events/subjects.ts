@@ -3,5 +3,5 @@ export enum Subjects {
   AccountUpdated = 'account:updated',
   AccountDeleted = 'account:deleted'
 
-  
+
 }
