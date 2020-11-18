@@ -1,3 +1,47 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: logging
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: filebeat-config
+#   namespace: logging
+#   labels:
+#     k8s-app: filebeat
+# data:
+#   filebeat.yml: |-
+#
+#     # filebeat.inputs:
+#     # - type: container
+#     #   paths:
+#     #     - /var/log/containers/*.log
+#     #   processors:
+#     #     - add_kubernetes_metadata:
+#     #         host: ${NODE_NAME}
+#     #         matchers:
+#     #         - logs_path:
+#     #             logs_path: "/var/log/containers/"
+#     # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
+#
+#     filebeat.autodiscover:
+#      providers:
+#        - type: kubernetes
+#          node: ${NODE_NAME}
+#          hints.enabled: true
+#          hints.default_config:
+#            type: container
+#            paths:
+#              - /var/log/containers/*${data.kubernetes.container.id}.log
+#
+#     output.elasticsearch:
+#       hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+#       # username: ${ELASTICSEARCH_USERNAME}
+#       # password: ${ELASTICSEARCH_PASSWORD}
+#     # setup.kibana:
+#     #   host: "http://kibana:5601/"
+# ---
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -10,35 +54,41 @@ metadata:
   namespace: logging
   labels:
     k8s-app: filebeat
-    kubernetes.io/cluster-service: "true"
 data:
   filebeat.yml: |-
-    filebeat.config:
-    #  inputs:
-    #    path: ${path.config}/inputs.d/*.yml
-    #    reload.enabled: true
-      modules:
-        path: ${path.config}/modules.d/*.yml
-        reload.enabled: true
-
+    # filebeat.config:
+    # filebeat.inputs:
+    # - type: container
+    #   paths:
+    #     - /var/log/containers/*.log
+    #   processors:
+    #     - add_kubernetes_metadata:
+    #         host: ${NODE_NAME}
+    #         matchers:
+    #         - logs_path:
+    #             logs_path: "/var/log/containers/"
+    # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
     filebeat.autodiscover:
       providers:
         - type: kubernetes
+          node: ${NODE_NAME}
           hints.enabled: true
-          include_annotations: ["artifact.spinnaker.io/name","ad.datadoghq.com/tags"]
-          include_labels: ["app.kubernetes.io/name"]
+          # include_annotations: ["artifact.spinnaker.io/name","ad.datadoghq.com/tags"]
+          # include_labels: ["app.kubernetes.io/name"]
           labels.dedot: true
           annotations.dedot: true
           templates:
             - condition:
                 equals:
-                  kubernetes.namespace: myapp   #Set the namespace in which your app is running, can add multiple conditions in case of more than 1 namespace.
+                  kubernetes.namespace: default   #Set the namespace in which your app is running, can add multiple conditions in case of more than 1 namespace.
               config:
                 - type: docker
+                  paths:
+                    - /var/log/containers/*${data.kubernetes.container.id}.log
                   containers.ids:
                     - "${data.kubernetes.container.id}"
                   multiline:
-                    pattern: '^[A-Za-z ]+[0-9]{2} (?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'.   #Timestamp regex for the app logs. Change it as per format.
+                    pattern: '^[A-Za-z ]+[0-9]{2} (?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'   #Timestamp regex for the app logs. Change it as per format.
                     negate: true
                     match: after
             - condition:
@@ -46,6 +96,8 @@ data:
                   kubernetes.namespace: elasticsearch
               config:
                 - type: docker
+                  paths:
+                    - /var/log/containers/*${data.kubernetes.container.id}.log
                   containers.ids:
                     - "${data.kubernetes.container.id}"
                   multiline:
@@ -62,4 +114,8 @@ data:
             - 'kubernetes.labels.app'
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+    #   username: ${ELASTICSEARCH_USERNAME}
+    #   password: ${ELASTICSEARCH_PASSWORD}
+    # setup.kibana:
+    #   host: "http://kibana:5601/"

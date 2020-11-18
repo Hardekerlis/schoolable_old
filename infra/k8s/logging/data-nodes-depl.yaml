@@ -23,7 +23,7 @@ metadata:
     role: data
 spec:
   serviceName: elasticsearch-data
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       component: elasticsearch
@@ -57,7 +57,7 @@ spec:
           privileged: true
       containers:
       - name: es-data
-        image: quay.io/pires/docker-elasticsearch-kubernetes:6.2.4
+        image: quay.io/pires/docker-elasticsearch-kubernetes:6.2.2
         env:
         - name: NAMESPACE
           valueFrom:

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: kibana
-          image: docker.elastic.co/kibana/kibana-oss:6.2.2
+          image: docker.elastic.co/kibana/kibana-oss:6.8.9
           env:
             - name: CLUSTER_NAME
               value: my-es
@@ -41,7 +41,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: logging
-  name: kibana-srv
+  name: kibana
   annotations:
     # cloud.google.com/load-balancer-type: "Internal"
     service.kubernetes.io/load-balancer-cleanup: "true"
