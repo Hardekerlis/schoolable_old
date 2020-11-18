@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: logging
----
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: logging
+# ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: filebeat
-  namespace: logging
+  # namespace: logging
   labels:
     k8s-app: filebeat
 spec:
@@ -22,11 +22,11 @@ spec:
       serviceAccountName: filebeat
       terminationGracePeriodSeconds: 30
       tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-      - effect: noExecute
-        key: app
-        value: auth
+      # - effect: NoSchedule
+      #   key: node-role.kubernetes.io/master
+      # - effect: NoSchedule
+      #   key: logging
+      #   value: logging
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
@@ -56,8 +56,9 @@ spec:
         resources:
           limits:
             memory: 200Mi
+            cpu: 1000m
           requests:
-            cpu: 200m
+            cpu: 1000m
             memory: 200Mi
         volumeMounts:
         - name: config

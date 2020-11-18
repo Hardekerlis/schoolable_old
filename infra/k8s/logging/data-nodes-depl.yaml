@@ -83,7 +83,7 @@ spec:
               resource: limits.cpu
         resources:
           limits:
-            cpu: 100m
+            cpu: 200m
         ports:
         - containerPort: 9300
           name: transport
