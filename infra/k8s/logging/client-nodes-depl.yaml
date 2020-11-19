@@ -50,24 +50,24 @@ spec:
         env:
         # - name: PATH
         #   value: "/elasticsearch/bin:$PATH"
-        - name: NODE_INGEST
-          value: "true"
-        - name: HTTP_CORS_ENABLE
-          value: "true"
-        - name: HTTP_CORS_ALLOW_ORIGIN
-          value: "*"
-        - name: MAX_LOCAL_STORAGE_NODES
-          value: "1"
-        - name: NUMBER_OF_MASTERS
-          value: "1"
-        - name: SHARD_ALLOCATION_AWARENESS
-          value: ""
-        - name: SHARD_ALLOCATION_AWARENESS_ATTR
-          value: ""
-        - name: MEMORY_LOCK
-          value: "false"
-        - name: REPO_LOCATIONS
-          value: ""
+        # - name: NODE_INGEST
+        #   value: "true"
+        # - name: HTTP_CORS_ENABLE
+        #   value: "true"
+        # - name: HTTP_CORS_ALLOW_ORIGIN
+        #   value: "*"
+        # - name: MAX_LOCAL_STORAGE_NODES
+        #   value: "1"
+        # - name: NUMBER_OF_MASTERS
+        #   value: "1"
+        # - name: SHARD_ALLOCATION_AWARENESS
+        #   value: ""
+        # - name: SHARD_ALLOCATION_AWARENESS_ATTR
+        #   value: ""
+        # - name: MEMORY_LOCK
+        #   value: "false"
+        # - name: REPO_LOCATIONS
+        #   value: ""
         - name: NAMESPACE
           valueFrom:
             fieldRef:
