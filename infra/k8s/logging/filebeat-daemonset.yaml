@@ -53,13 +53,13 @@ spec:
           runAsUser: 0
           # If using Red Hat OpenShift uncomment this:
           #privileged: true
-        resources:
-          limits:
-            memory: 200Mi
-            cpu: 1000m
-          requests:
-            cpu: 1000m
-            memory: 200Mi
+        # resources:
+          # limits:
+          #   memory: 200Mi
+          #   cpu: 1000m
+          # requests:
+          #   cpu: 1000m
+          #   memory: 200Mi
         volumeMounts:
         - name: config
           mountPath: /etc/filebeat.yml

@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: elasticsearch
----
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: elasticsearch
+# ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: es-client
-  namespace: elasticsearch
+  # namespace: elasticsearch
   labels:
     component: elasticsearch
     role: client
@@ -46,8 +46,28 @@ spec:
           privileged: true
       containers:
       - name: es-client
-        image: quay.io/pires/docker-elasticsearch-kubernetes:6.2.4
+        image: gustafdahl/elasticsearch-k8s:0.0.5
         env:
+        # - name: PATH
+        #   value: "/elasticsearch/bin:$PATH"
+        - name: NODE_INGEST
+          value: "true"
+        - name: HTTP_CORS_ENABLE
+          value: "true"
+        - name: HTTP_CORS_ALLOW_ORIGIN
+          value: "*"
+        - name: MAX_LOCAL_STORAGE_NODES
+          value: "1"
+        - name: NUMBER_OF_MASTERS
+          value: "1"
+        - name: SHARD_ALLOCATION_AWARENESS
+          value: ""
+        - name: SHARD_ALLOCATION_AWARENESS_ATTR
+          value: ""
+        - name: MEMORY_LOCK
+          value: "false"
+        - name: REPO_LOCATIONS
+          value: ""
         - name: NAMESPACE
           valueFrom:
             fieldRef:
@@ -68,6 +88,8 @@ spec:
           value: -Xms256m -Xmx256m
         - name: NETWORK_HOST
           value: _site_,_lo_
+        # - name:  TYPE
+        #   value: single-node
         - name: PROCESSORS
           valueFrom:
             resourceFieldRef:
@@ -92,7 +114,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch
-  namespace: elasticsearch
+  # namespace: elasticsearch
   labels:
     component: elasticsearch
     role: client

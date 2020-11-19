@@ -3,8 +3,8 @@ cluster:
 
 node:
   master: ${NODE_MASTER}
-  name: ${NODE_NAME}
   data: ${NODE_DATA}
+  name: ${NODE_NAME}
   ingest: ${NODE_INGEST}
   max_local_storage_nodes: ${MAX_LOCAL_STORAGE_NODES}
 
@@ -29,6 +29,7 @@ http:
 
 discovery:
   zen:
+    ping.unicast.hosts: ${DISCOVERY_SERVICE}
     minimum_master_nodes: ${NUMBER_OF_MASTERS}
 
 xpack.ml.enabled: false

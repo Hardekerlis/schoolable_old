@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: elasticsearch
----
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: elasticsearch
+# ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: es-master
-  namespace: elasticsearch
+  # namespace: elasticsearch
   labels:
     component: elasticsearch
     role: master
@@ -92,7 +92,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch-discovery
-  namespace: elasticsearch
+  # namespace: elasticsearch
   labels:
     component: elasticsearch
     role: master
