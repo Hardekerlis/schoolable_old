@@ -1,4 +1,6 @@
 
+#!/bin/bash
+
 red=`tput setaf 1`
 green=`tput setaf 2`
 yellow=`tput setaf 3`
@@ -17,7 +19,7 @@ function kube () {
   return;
 }
 
-function esSetupFunc {
+function esSetup {
   while [[ true ]]; do
 
     echo "Would you like to delete or apply the config files? Enter 'apply' or 'delete'"
@@ -67,4 +69,4 @@ function esSetupFunc {
   done
 }
 
-alias esSetup="esSetupFunc";
+alias esSetup="esSetup";
