@@ -30,3 +30,14 @@ Delete the most recent commit, destroying the work you've done:
 ```cmd
 git reset --hard HEAD~1
 ```
+
+**K8s Dashboard:**
+Run kubectl proxy to get localhost:8001 running. Then run:
+```cmd
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+```
+to get the token.
+
+* url: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+* docs: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+* sample-user: https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
