@@ -2,21 +2,24 @@
 #!/bin/bash
 
 dirArr=($(echo $(pwd) | tr "/" "\n"));
-dirArrLen=$((${#dirArr[@]}-1))
+dirArrLen=$((${#dirArr[@]}-1));
+
+esPath="";
 
 for i in `seq 0 $dirArrLen`; do
 
   # echo "$dirArrLen - ${dirArr[$i]}:$i"
 
   if [[ "${dirArr[$i]}" == "schoolable" ]] && [[ "$i" == "$dirArrLen" ]]; then
-    echo "last is schoolable"
+    esPath="$(pwd)/infra/logging-cloud/setup-es.sh";
 
-    echo "$(pwd)/infra/logging-cloud/.bash_es_setup"
+    groundPath=$(pwd);
 
-    source "$(pwd)/infra/logging-cloud/.bash_es_setup";
+    cd $groundPath/infra/logging-cloud/
 
-    echo "Setup an alias for elastic cloud to run the setup bash";
-    echo "run 'esSetup to run elastic cloud'";
+    alias esSetup=$esPath;
+
+    source $esPath
 
     break;
   elif [[ "${dirArr[$i]}" == "schoolable" ]] && [[ "$i" != "$dirArrLen" ]] ; then

@@ -41,3 +41,15 @@ to get the token.
 * url: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
 * docs: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 * sample-user: https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+**Kibana Dasboard:**
+Run:
+```cmd
+kubectl get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+```
+to get password</br>
+
+**Filebeat**
+```cmd
+PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+```
