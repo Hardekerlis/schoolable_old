@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2beta9
 kind: Config
 deploy:
   kubectl:
@@ -17,3 +17,5 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+# cluster:
+#   namespace: logging
