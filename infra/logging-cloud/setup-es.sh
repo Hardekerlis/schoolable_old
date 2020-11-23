@@ -39,11 +39,22 @@ while [[ true ]]; do
     kube "$command"
     wait
 
-    echo "Waiting 60 seconds to let elastic make the secret available"
-    sleep 60s;
+    fails=1;
+    while [[ true ]]; do
 
-    password=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}');
-    wait
+      echo ""
+      echo "Waiting 10 seconds to let elastic make the secret available"
+      sleep 10s;
+
+      password=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}');
+      wait
+      if [[ $password != "" ]]; then
+        break;
+      fi
+      echo "${cyan}Attempts: $fails";
+      echo "${red}Password wasn't available${reset}"
+      fails=$((fails+1));
+    done
 
     filebeatTemp="$(pwd)/templates/filebeat-temp.yml";
 
@@ -53,7 +64,8 @@ while [[ true ]]; do
     replace='${esPassword}'
     sed -i "s/$replace/$password/" "./templates/filebeat.yml"
 
-    mv -f "$(pwd)/templates/filebeat.yml" "$(pwd)/apply-last";
+    mkdir "$(pwd)/apply-last/";
+    mv -f "$(pwd)/templates/filebeat.yml" "$(pwd)/apply-last/";
     wait
 
     command=$"$option -f $(pwd)/apply-last/";
@@ -83,6 +95,8 @@ while [[ true ]]; do
 
     kube "$command"
     wait
+
+    rm -Rf "$(pwd)/apply-last/"
 
     echo ""
 
