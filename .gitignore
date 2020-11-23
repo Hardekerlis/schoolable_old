@@ -1,6 +1,7 @@
 node_modules/
-
-apply-last/filebeat.yml
+logs/
+temptest
+apply-last
 
 .next
 

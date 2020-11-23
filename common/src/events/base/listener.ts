@@ -1,10 +1,12 @@
+/** @format */
+
 import { Message, Stan } from 'node-nats-streaming';
 import { Subjects } from '../subjects';
 
 interface Event {
   subject: Subjects;
   data: any;
-};
+}
 
 export abstract class Listener<T extends Event> {
   abstract subject: T['subject'];
@@ -15,25 +17,24 @@ export abstract class Listener<T extends Event> {
 
   constructor(client: Stan) {
     this.client = client;
-  };
+  }
 
   private subscriptionOptions() {
-    return this.client.subscriptionOptions()
+    return this.client
+      .subscriptionOptions()
       .setDeliverAllAvailable()
       .setManualAckMode(true)
       .setAckWait(this.ackWait)
       .setDurableName(this.queueGroupName);
-  };
+  }
 
   listen() {
     const subscription = this.client.subscribe(
       this.subject,
       this.queueGroupName,
-      this.subscriptionOptions()
+      this.subscriptionOptions(),
     );
 
-    subscription.on('message', (msg: Message) => {
-
-    });
-  };
-};
+    subscription.on('message', (msg: Message) => {});
+  }
+}

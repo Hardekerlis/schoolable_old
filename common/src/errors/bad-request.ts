@@ -1,3 +1,5 @@
+/** @format */
+
 import { CustomError } from './custom-error';
 
 export class BadRequestError extends CustomError {
@@ -10,6 +12,6 @@ export class BadRequestError extends CustomError {
   }
 
   serializeErrors() {
-    return [{ message: this.message }]
+    return [{ message: this.message }];
   }
 }

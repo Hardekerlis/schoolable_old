@@ -4,4 +4,4 @@ singleQuote: true
 trailingComma: 'all'
 bracketSpacing: true
 insertPragma: true
-requirePragma: true
+requirePragma: false

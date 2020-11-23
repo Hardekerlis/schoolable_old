@@ -1,3 +1,5 @@
+/** @format */
+
 import { CustomError } from './custom-error';
 
 export class DatabaseConnectionError extends CustomError {
@@ -8,11 +10,9 @@ export class DatabaseConnectionError extends CustomError {
     super('Database connection error');
 
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
-  };
+  }
 
   serializeErrors() {
-    return [
-      { message: this.reason }
-    ]
+    return [{ message: this.reason }];
   }
-};
+}
