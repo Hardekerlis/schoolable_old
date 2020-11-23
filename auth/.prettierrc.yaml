@@ -1,0 +1,6 @@
+singleQuote: true
+trailingComma: all
+requirePragma: true
+insertPragma: true
+tabWidth: 2
+useTabs: false
