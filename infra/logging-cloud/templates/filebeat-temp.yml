@@ -57,37 +57,47 @@ data:
     #             logs_path: "/var/log/containers/"
 
     # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
+    # filebeat.autodiscover:
+    #   providers:
+    #     - type: kubernetes
+    #     node: ${NODE_NAME}
+    #     annotations:
+    #       co.elastic.logs/multiline.pattern: '^\['
+    #       co.elastic.logs/multiline.negate: true
+    #       co.elastic.logs/multiline.match: after
+    #       co.elastic.logs.sidecar/exclude_lines: '^DBG'
+    #     include_labels: ["app.kubernetes.io/name"]
+    #     hints.enabled: true
+    #     hints.default_config:
+    #       type: container
+    #       paths:
+    #         - /var/log/containers/*${data.kubernetes.container.id}.log
     filebeat.autodiscover:
-        providers:
-          - type: kubernetes
-            hints.enabled: true
-            include_annotations: ["artifact.spinnaker.io/name","ad.datadoghq.com/tags"]
-            include_labels: ["app.kubernetes.io/name"]
-            labels.dedot: true
-            annotations.dedot: true
-            templates:
-              - condition:
-                  equals:
-                    kubernetes.namespace: default   #Set the namespace in which your app is running, can add multiple conditions in case of more than 1 namespace.
-                config:
-                  - type: docker
-                    containers.ids:
-                      - "${data.kubernetes.container.id}"
-                    multiline:
-                      pattern: '^[A-Za-z ]+[0-9]{2} (?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)'   #Timestamp regex for the app logs. Change it as per format.
-                      negate: true
-                      match: after
-              - condition:
-                  equals:
-                    kubernetes.namespace: elasticsearch
-                config:
-                  - type: docker
-                    containers.ids:
-                      - "${data.kubernetes.container.id}"
-                    multiline:
-                      pattern: '^\[[0-9]{4}-[0-9]{2}-[0-9]{2}|^[0-9]{4}-[0-9]{2}-[0-9]{2}T'
-                      negate: true
-                      match: after
+      # List of enabled autodiscover providers
+      providers:
+       - type: kubernetes
+         node: ${NODE_NAME}
+         hints.enabled: true
+         templates:
+           - condition:
+               equals.kubernetes.namespace: default
+             config:
+               - type: container
+                 paths:
+                   - /var/lib/docker/containers/${data.docker.container.id}/*.log
+    # filebeat.autodiscover:
+    #   hints.enabled: true
+    #   node: ${NODE_NAME}
+    #   providers: kubernetes
+    #     templates:
+    #       - condition:
+    #           equals:
+    #             kubernetes.namespace: default
+    #         config:
+    #           - type: container
+    #             paths:
+    #               - /var/log/containers/*${data.kubernetes.container.id}.log
+
 
     processors:
       - add_cloud_metadata:
@@ -138,10 +148,7 @@ spec:
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: quickstart-es-elastic-user
-              key: elastic
+          value: ${esPassword}
         - name: ELASTIC_CLOUD_ID
           value:
         - name: ELASTIC_CLOUD_AUTH

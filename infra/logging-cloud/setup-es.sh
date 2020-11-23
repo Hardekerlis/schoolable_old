@@ -34,39 +34,47 @@ while [[ true ]]; do
     kube "$command"
     wait
 
-    # filebeatConf=$(<"./templates/filebeat.yml");
-    # wait
-
-    # PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
-    # wait
-    #
-    # echo "eee"
-
-    # /\${([^}]+)}/
-    # newFilebeatConf=$($filebeatConf | sed -e "/\${([^}]+)}/"$PASSWORD);
-    # newFilebeatConf="$filebeatConf${"/\${([^}]+)}/"$PASSWORD}"
-    # echo $(sed -i 's/\${([^}]+)}/PASSWORD/g' ./templates/filebeat.yml);
-
-    # echo "e123"
-
-    # wait
-
-    # echo "$newFilebeatConf";
-    # exit;
-
     command=$"$option -f $(pwd)/apply-later/";
+
+    kube "$command"
+    wait
+
+    echo "Waiting 60 seconds to let elastic make the secret available"
+    sleep 60s;
+
+    password=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}');
+    wait
+
+    filebeatTemp="$(pwd)/templates/filebeat-temp.yml";
+
+    cp $filebeatTemp "$(pwd)/templates/filebeat.yml";
+    wait
+
+    replace='${esPassword}'
+    sed -i "s/$replace/$password/" "./templates/filebeat.yml"
+
+    mv -f "$(pwd)/templates/filebeat.yml" "$(pwd)/apply-last";
+    wait
+
+    command=$"$option -f $(pwd)/apply-last/";
 
     kube "$command"
     wait
 
     echo ""
 
+    echo "${red}Kibana password:${reset} $password";
     echo "Applied config files"
   elif [[ $option == "delete" ]]; then
     echo "${red}Shuting down Elatic cloud"
     statusMsg="Setting up Elasticsearch${reset}"
 
     command=$"$option -f $(pwd)/apply-later/";
+
+    kube "$command"
+    wait
+
+    command=$"$option -f $(pwd)/apply-last/";
 
     kube "$command"
     wait
