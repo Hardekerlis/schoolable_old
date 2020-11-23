@@ -6,3 +6,5 @@ I get:</br>
 ```
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 ```
+
+## Logging custom doesn't work. Needs custom docker images.
