@@ -1,3 +1,5 @@
+/** @format */
+
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
@@ -7,16 +9,16 @@ import { NotFoundError, errorHandler } from '@schoolable/common';
 
 import { registerRouter } from './routes/routes-collection';
 
-
 const app = express();
 
 app.set('trust proxy', true);
 app.use(json());
-app.use(cookieSession({
-  signed: false,
-  secure: process.env.NODE_ENV !== 'test'
-}));
-
+app.use(
+  cookieSession({
+    signed: false,
+    secure: process.env.NODE_ENV !== 'test',
+  }),
+);
 
 app.use(registerRouter);
 
@@ -26,4 +28,4 @@ app.all('*', async () => {
 
 app.use(errorHandler);
 
-export { app }
+export { app };
