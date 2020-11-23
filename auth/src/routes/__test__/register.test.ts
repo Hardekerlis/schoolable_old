@@ -1,3 +1,5 @@
+/** @format */
+
 import request from 'supertest';
 import { app } from '../../app';
 
@@ -8,7 +10,7 @@ it('returns a 201 on successful signup', async () => {
     .post(path)
     .send({
       email: 'test@test.com',
-      password: 'password'
+      password: 'password',
     })
     .expect(201);
 });
@@ -18,7 +20,7 @@ it('returns a 400 with an invalid email', async () => {
     .post(path)
     .send({
       email: 'notanemail',
-      password: 'password'
+      password: 'password',
     })
     .expect(400);
 });
@@ -28,26 +30,17 @@ it('returns a 400 with an invalid password', async () => {
     .post(path)
     .send({
       email: 'test@test.com',
-      password: 'p' // Too short
+      password: 'p', // Too short
     })
     .expect(400);
 });
 
 it('returns a 400 with missing email and/or password', async () => {
-  await request(app)
-    .post(path)
-    .send({})
-    .expect(400)
+  await request(app).post(path).send({}).expect(400);
 
-  await  request(app)
-  .post(path)
-    .send({ email: 'test@test.com '})
-    .expect(400)
+  await request(app).post(path).send({ email: 'test@test.com ' }).expect(400);
 
-  await request(app)
-    .post(path)
-    .send({ password: 'password' })
-    .expect(400)
+  await request(app).post(path).send({ password: 'password' }).expect(400);
 });
 
 it('returns a 400 if email already is in use', async () => {
@@ -55,7 +48,7 @@ it('returns a 400 if email already is in use', async () => {
     .post(path)
     .send({
       email: 'test@test.com',
-      password: 'password'
+      password: 'password',
     })
     .expect(201);
 
@@ -63,7 +56,7 @@ it('returns a 400 if email already is in use', async () => {
     .post(path)
     .send({
       email: 'test@test.com',
-      password: 'password'
+      password: 'password',
     })
     .expect(400);
 });
@@ -73,9 +66,9 @@ it('Should not set a coookie on signup', async () => {
     .post(path)
     .send({
       email: 'test@test.com',
-      password: 'password'
+      password: 'password',
     })
     .expect(201);
 
-    expect(res.get('Set-Cookie')).not.toBeDefined();
+  expect(res.get('Set-Cookie')).not.toBeDefined();
 });
