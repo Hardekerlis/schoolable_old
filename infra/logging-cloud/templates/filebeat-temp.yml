@@ -73,24 +73,32 @@ data:
     #       paths:
     #         - /var/log/containers/*${data.kubernetes.container.id}.log
     filebeat.autodiscover:
-      # List of enabled autodiscover providers
-      providers:
+     providers:
        - type: kubernetes
-         node: ${NODE_NAME}
+         host: ${NODE_NAME}
          hints.enabled: true
-         templates:
-            - condition:
-                equals.kubernetes.namespace: default
-              config:
-               - type: container
-                 paths:
-                   - /var/lib/docker/containers/${data.docker.container.id}/*.log
-            # - condition:
-            #    equals.kubernetes.namespace: default
-            #   config:
-            #     - type: docker
-            #       paths:
-            #         - /app/*/logs/*.log
+
+
+    # filebeat.autodiscover:
+    #   # List of enabled autodiscover providers
+    #   providers:
+    #    - type: kubernetes
+    #      include_labels: ["app.kubernetes.io/name"]
+    #      node: ${NODE_NAME}
+    #      hints.enabled: true
+    #      templates:
+    #         - condition:
+    #             equals.kubernetes.namespace: default
+    #           config:
+    #            - type: container
+    #              paths:
+    #                - /var/lib/docker/containers/${data.docker.container.id}/*.log
+    #         - condition:
+    #            equals.kubernetes.labels.logging: logging
+    #           config:
+    #             - type: filestream
+    #               paths:
+    #                 - /var/log/*.log
     # filebeat.autodiscover:
     #   hints.enabled: true
     #   node: ${NODE_NAME}
@@ -108,6 +116,11 @@ data:
     processors:
       - add_cloud_metadata:
       - add_host_metadata:
+      - drop_fields:
+          when:
+            has_fields: ['kubernetes.labels.app']
+          fields:
+            - 'kubernetes.labels.app'
 
     cloud.id: ${ELASTIC_CLOUD_ID}
     cloud.auth: ${ELASTIC_CLOUD_AUTH}

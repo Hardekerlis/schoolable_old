@@ -16,6 +16,12 @@ import { LoggerStream } from './config/winston';
 
 const app = express();
 app.use(morgan('combined', { stream: new LoggerStream() }));
+console.log(
+  JSON.stringify({
+    type: 'ERROR',
+    msg: 'this is my message',
+  }),
+);
 
 app.set('trust proxy', true);
 app.use(json());
