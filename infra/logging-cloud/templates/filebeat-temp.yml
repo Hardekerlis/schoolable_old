@@ -121,6 +121,10 @@ data:
             has_fields: ['kubernetes.labels.app']
           fields:
             - 'kubernetes.labels.app'
+      - decode_json_fields:
+          fields: ["message"]
+          target: ""
+          add_error_key: true
 
     cloud.id: ${ELASTIC_CLOUD_ID}
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
