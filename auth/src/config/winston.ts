@@ -1,39 +1,42 @@
 /** @format */
-// @ts-nocheck
-import { createLogger, format, transports, config } from 'winston';
-const { combine, splat, timestamp, printf } = format;
 
-const myFormat = printf((log) => {
-  const { level, message, timestamp, ...metadata } = log;
+import { createLogger, transports, format } from 'winston';
+const { combine, timestamp, label, printf, prettyPrint } = format;
 
-  let msg = `${timestamp}[${level}]: ${message}`;
+const winstonConfig = {
+  file: {
+    level: 'info',
+    filename: `${process.env.appRoot}/logs/app.log`,
+    handleExceptions: true,
+    json: true,
+    maxSize: 5242880,
+    maxFiles: 5,
+    colorize: false,
+  },
+  console: {
+    level: 'debug',
+    handleExceptions: true,
+    json: false,
+    colorize: true,
+  },
+};
 
-  if (metadata) {
-    msg += JSON.stringify(metadata);
-  }
-  return msg;
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `{"${timestamp}": [${label}] ${level}: ${message}}`;
 });
-
-const appRoot = process.cwd();
 
 const winston = createLogger({
-  level: config.syslog.levels,
-  format: combine(format.colorize(), splat(), timestamp(), myFormat),
+  format: combine(
+    label({ label: 'right meow!' }),
+    timestamp(),
+    prettyPrint(),
+    myFormat,
+  ),
   transports: [
-    new transports.Console({ level: 'debug' }),
-    // new transports.File({
-    //   filename: `${appRoot}/logs/app.log` /* config.get('app.logging.outputfile') */,
-    //   level: 'debug',
-    // }),
+    new transports.File(winstonConfig.file),
+    new transports.Console(winstonConfig.console),
   ],
 });
-
-// winston.stream = {
-//   write: (message, encoding) => {
-//     // use the 'info' log level so the output will be picked up by both transports (file and console)
-//     winston.info(message);
-//   },
-// };
 
 export class LoggerStream {
   write(message: string) {
