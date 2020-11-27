@@ -1,7 +1,7 @@
 /** @format */
 
 import { createLogger, transports, format } from 'winston';
-const { combine, timestamp, label, printf, prettyPrint } = format;
+const { combine, timestamp, label, printf, prettyPrint, colorize } = format;
 
 const winstonConfig = {
   file: {
@@ -30,6 +30,7 @@ const winston = createLogger({
     label({ label: 'right meow!' }),
     timestamp(),
     prettyPrint(),
+    colorize(),
     myFormat,
   ),
   transports: [
