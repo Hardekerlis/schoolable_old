@@ -1,46 +1,65 @@
 /** @format */
 
 import { createLogger, transports, format } from 'winston';
-const { combine, timestamp, label, printf, prettyPrint, colorize } = format;
+const { combine, timestamp, printf, prettyPrint, colorize } = format;
 
 const winstonConfig = {
-  file: {
+  console: {
     level: 'info',
-    filename: `${process.env.appRoot}/logs/app.log`,
     handleExceptions: true,
     json: true,
-    maxSize: 5242880,
-    maxFiles: 5,
     colorize: false,
-  },
-  console: {
-    level: 'debug',
-    handleExceptions: true,
-    json: false,
-    colorize: true,
   },
 };
 
-const myFormat = printf(({ level, message, label, timestamp }) => {
-  return `{"${timestamp}": [${label}] ${level}: ${message}}`;
+const myFormat = printf(({ level, message, timestamp }) => {
+  const tempObj = Object.assign({ timestamp: timestamp }, JSON.parse(message));
+
+  const logObj = {
+    [level]: tempObj,
+  };
+
+  return JSON.stringify(logObj);
 });
 
 const winston = createLogger({
-  format: combine(
-    label({ label: 'right meow!' }),
-    timestamp(),
-    prettyPrint(),
-    colorize(),
-    myFormat,
-  ),
-  transports: [
-    new transports.File(winstonConfig.file),
-    new transports.Console(winstonConfig.console),
-  ],
+  format: combine(timestamp(), prettyPrint(), myFormat),
+  transports: [new transports.Console(winstonConfig.console)],
 });
 
 export class LoggerStream {
   write(message: string) {
     winston.info(message.substring(0, message.lastIndexOf('\n')));
+  }
+}
+
+interface Log {
+  msg: string;
+  statusCode: number;
+}
+
+export class Winston {
+  error(msg: object) {
+    winston.error(JSON.stringify(msg));
+  }
+
+  warn(msg: object) {
+    winston.warn(JSON.stringify(msg));
+  }
+
+  info(msg: object) {
+    winston.info(JSON.stringify(msg));
+  }
+
+  http(msg: object) {
+    winston.http(JSON.stringify(msg));
+  }
+
+  verbose(msg: object) {
+    winston.verbose(JSON.stringify(msg));
+  }
+
+  debug(msg: object) {
+    winston.debug(JSON.stringify(msg));
   }
 }

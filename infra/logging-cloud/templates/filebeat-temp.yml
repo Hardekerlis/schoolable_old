@@ -77,7 +77,13 @@ data:
        - type: kubernetes
          host: ${NODE_NAME}
          hints.enabled: true
-
+         # templates:
+         #  - condition:
+         #      equals.kubernetes.namespace: default
+         #    config:
+         #     - type: container
+         #       paths:
+         #         - /var/lib/docker/containers/${data.docker.container.id}/*.log
 
     # filebeat.autodiscover:
     #   # List of enabled autodiscover providers
@@ -125,6 +131,7 @@ data:
           fields: ["message"]
           target: ""
           add_error_key: true
+          max_depth: 3
 
     cloud.id: ${ELASTIC_CLOUD_ID}
     cloud.auth: ${ELASTIC_CLOUD_AUTH}

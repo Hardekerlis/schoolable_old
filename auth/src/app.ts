@@ -8,10 +8,19 @@ import morgan from 'morgan';
 import { NotFoundError, errorHandler } from '@schoolable/common';
 
 import { registerRouter } from './routes/routes-collection';
-import { LoggerStream } from './config/winston';
+import { LoggerStream, Winston } from './config/winston';
 
+new Winston().info({ test: 'yes' });
 const app = express();
-app.use(morgan('combined', { stream: new LoggerStream() }));
+
+app.use(
+  morgan(
+    '{"url": ":url", "responseTime": ":response-time", "method": ":method", "statusCode": ":status", "totalTime": ":total-time", "remoteAddress": ":remote-addr"}',
+    {
+      stream: new LoggerStream(),
+    },
+  ),
+);
 
 app.set('trust proxy', true);
 app.use(json());
