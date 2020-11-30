@@ -1,9 +1,9 @@
 /** @format */
 
+// @ts-ignore
+
 import mongoose from 'mongoose';
-
 import { app } from './app';
-
 const start = () => {
   const { env } = process;
   if (!env.appRoot) {
@@ -16,8 +16,14 @@ const start = () => {
     return;
   }
 
+  // if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+  process.env.NODE_ENV = !process.env.NODE_ENV ? 'dev' : process.env.NODE_ENV;
+  console.log(process.env.NODE_ENV);
+
   app.listen(3000, () => {
-    console.log(`Listening on *:3000`);
+    if (process.env.NODE_ENV === 'dev') {
+      console.log(`Listening on *:3000`);
+    }
   });
 };
 

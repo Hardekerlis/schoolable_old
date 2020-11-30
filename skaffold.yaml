@@ -10,7 +10,7 @@ build:
   artifacts:
     - image: us.gcr.io/schoolable-295414/auth
       kaniko:
-          dockerfile: Dockerfile
+          dockerfile: Dockerfile.dev
           cache: {}
       context: auth
       sync:

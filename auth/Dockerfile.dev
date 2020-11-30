@@ -5,7 +5,9 @@ COPY package.json .
 RUN npm install --only=prod
 COPY . .
 
-ENV NODE_ENV="prod"
+ENV NODE_ENV="dev"
 ENV appRoot="/app"
+
+RUN mkdir /app/logs
 
 CMD ["npm", "start"]

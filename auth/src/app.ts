@@ -10,16 +10,13 @@ import { NotFoundError, errorHandler } from '@schoolable/common';
 import { registerRouter } from './routes/routes-collection';
 import { LoggerStream, Winston } from './config/winston';
 
-new Winston().info({ test: 'yes' });
+new Winston().debug('Fuck me backwards');
 const app = express();
 
 app.use(
-  morgan(
-    '{"url": ":url", "responseTime": ":response-time", "method": ":method", "statusCode": ":status", "totalTime": ":total-time", "remoteAddress": ":remote-addr"}',
-    {
-      stream: new LoggerStream(),
-    },
-  ),
+  morgan('combined', {
+    stream: new LoggerStream(),
+  }),
 );
 
 app.set('trust proxy', true);
