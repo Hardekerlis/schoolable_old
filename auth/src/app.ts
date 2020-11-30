@@ -5,12 +5,15 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import morgan from 'morgan';
-import { NotFoundError, errorHandler } from '@schoolable/common';
+import {
+  NotFoundError,
+  errorHandler,
+  LoggerStream,
+  Winston,
+} from '@schoolable/common';
 
 import { registerRouter } from './routes/routes-collection';
-import { LoggerStream, Winston } from './config/winston';
 
-new Winston().debug('Fuck me backwards');
 const app = express();
 
 app.use(
@@ -27,6 +30,11 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
 
 app.use(registerRouter);
 

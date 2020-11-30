@@ -1,6 +1,6 @@
 {
   "name": "@schoolable/common",
-  "version": "1.4.9",
+  "version": "1.5.2",
   "description": "Common library for schoolable",
   "author": "",
   "main": "./build/index.js",

@@ -1,7 +1,5 @@
 /** @format */
 
-// @ts-ignore
-
 import mongoose from 'mongoose';
 import { app } from './app';
 const start = () => {
@@ -16,9 +14,7 @@ const start = () => {
     return;
   }
 
-  // if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
   process.env.NODE_ENV = !process.env.NODE_ENV ? 'dev' : process.env.NODE_ENV;
-  console.log(process.env.NODE_ENV);
 
   app.listen(3000, () => {
     if (process.env.NODE_ENV === 'dev') {

@@ -1,4 +1,4 @@
-FROM alpine
+FROM busybox
 
 WORKDIR /app
 COPY . .
