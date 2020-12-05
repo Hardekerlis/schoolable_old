@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  namespace: sandbox
+  name: first-tls
+  spec:
+    secretName: first-tls
+    dnsNames:
+      - dev.schoolable.se
+      - admin.schoolable.se
+    issuerRef:
+      name: selfsigned-issuer

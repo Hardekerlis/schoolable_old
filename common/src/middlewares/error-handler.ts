@@ -2,9 +2,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../errors/custom-error';
-import { Winston } from '../logging/winston';
-
-const winston = new Winston();
+import { winston } from '../logging/winston';
 
 export const errorHandler = (
   err: Error,

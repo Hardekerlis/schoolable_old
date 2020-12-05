@@ -48,13 +48,13 @@ const schema = new mongoose.Schema(
   },
 );
 
-schema.pre('save', async function (done) {
+schema.pre('save', async function (next) {
   // Middleware to hash password on save if password is modified
   if (this.isModified('password')) {
     const hashed = await Password.toHash(this.get('password'));
     this.set('password', hashed);
   }
-  done();
+  next(new Error('hej'));
 });
 
 const User = mongoose.model<UserDoc, UserModel>('users', schema);

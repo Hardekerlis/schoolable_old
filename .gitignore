@@ -2,7 +2,9 @@ node_modules/
 logs/
 temptest
 apply-last
-
+coverage
 .next
 
 /temp/
+schoolable.wiki
+kindOfGarbage

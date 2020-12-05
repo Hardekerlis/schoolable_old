@@ -16,39 +16,47 @@ const myFormat = printf(({ level, message, timestamp }) => {
   return `[${timestamp}][${level}]: ${message}`;
 });
 
-const winston = createLogger({
+const consoleTransport = new transports.Console(winstonConfig.console);
+
+const logger = createLogger({
   format: combine(timestamp(), prettyPrint(), myFormat),
-  transports: [new transports.Console(winstonConfig.console)],
+  transports: [consoleTransport],
 });
 
 export class LoggerStream {
   write(message: string) {
-    winston.info(message.substring(0, message.lastIndexOf('\n')));
+    logger.info(message.substring(0, message.lastIndexOf('\n')));
   }
 }
 
-export class Winston {
+class Winston {
   error(msg: any) {
-    winston.error(JSON.stringify(msg));
+    logger.error(JSON.stringify(msg));
   }
 
   warn(msg: any) {
-    winston.warn(JSON.stringify(msg));
+    logger.warn(JSON.stringify(msg));
   }
 
   info(msg: any) {
-    winston.info(JSON.stringify(msg));
+    logger.info(JSON.stringify(msg));
   }
 
   http(msg: any) {
-    winston.http(JSON.stringify(msg));
+    logger.http(JSON.stringify(msg));
   }
 
   verbose(msg: any) {
-    winston.verbose(JSON.stringify(msg));
+    logger.verbose(JSON.stringify(msg));
   }
 
   debug(msg: any) {
-    winston.debug(JSON.stringify(msg));
+    logger.debug(JSON.stringify(msg));
+  }
+
+  testSetup() {
+    logger.transports.forEach((t) => (t.silent = true));
   }
 }
+
+export const winston = new Winston();

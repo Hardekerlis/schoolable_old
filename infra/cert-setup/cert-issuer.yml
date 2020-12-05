@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  namespace: sandbox
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+
+# apiVersion: cert-manager.io/v1
+# kind: Issuer
+# metadata:
+#   name: ca-issuer
+#   namespace: mesh-system
+# spec:
+#   ca:
+#     secretName: ca-key-pair

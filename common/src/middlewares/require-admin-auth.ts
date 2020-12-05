@@ -4,9 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { UserType } from './user-types';
 import { NotAuthorizedError } from '../errors/not-authorized';
-import { Winston } from '../logging/winston';
-
-const winston = new Winston();
+import { winston } from '../logging/winston';
 
 export const requireAdminAuth = (
   req: Request,

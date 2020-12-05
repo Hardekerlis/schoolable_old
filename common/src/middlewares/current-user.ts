@@ -2,7 +2,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { Winston } from '../logging/winston';
+import { winston } from '../logging/winston';
 
 import { UserType } from './user-types';
 
@@ -19,8 +19,6 @@ declare global {
     }
   }
 }
-
-const winston = new Winston();
 
 export const currentUser = (
   req: Request,

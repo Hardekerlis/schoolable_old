@@ -17,5 +17,25 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: us.gcr.io/schoolable-295414/admin-dashboard
+      kaniko:
+          dockerfile: Dockerfile.dev
+          cache: {}
+      context: admin-dashboard
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: us.gcr.io/schoolable-295414/admin-dashboard-client
+      kaniko:
+          dockerfile: Dockerfile.dev
+          cache: {}
+      context: admin-dashboard-client
+      sync:
+        manual:
+          - src: 'src/*'
+            dest: .
+          - src: 'public/*'
+            dest: .
 # cluster:
 #   namespace: logging

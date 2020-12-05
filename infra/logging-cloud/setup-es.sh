@@ -25,7 +25,7 @@ while [[ true ]]; do
   read  -p "Enter option: " option;
 
   if [[ $option == "apply" ]]; then
-    #
+    
     echo "${green}Starting up Elastic cloud";
     statusMsg="Setting up configuration${reset}"
 

@@ -5,9 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 
 import { RequestValidationError } from '../errors/request-validation';
-import { Winston } from '../logging/winston';
-
-const winston = new Winston();
+import { winston } from '../logging/winston';
 
 export const validateRequest = (
   req: Request,

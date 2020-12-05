@@ -5,8 +5,18 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
+    # kubernetes.io/ingress.global-static-ip-name: "admin-dashboard"
 spec:
+  tls:
+    - secretName: ca-key-pair
   rules:
+    - host: admin.schoolable.se
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: admin-dashboard-client-srv
+              servicePort: 3000
     - host: dev.schoolable.se
       http:
         paths:
@@ -14,7 +24,7 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 3000
-          # - path: /
+          # - path: /http://35.228.57.1/
           #   backend:
           #     serviceName: elasticsearch-srv
           #     servicePort: 9200
