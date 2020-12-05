@@ -7,18 +7,9 @@ import cookieSession from 'cookie-session';
 import morgan from 'morgan';
 import { NotFoundError, errorHandler, LoggerStream } from '@schoolable/common';
 
-import { registerRouter } from './routes/routes-collection';
+import { initalUserRouter } from './routes/routes-collection';
 
 const app = express();
-
-/**
- * This is a description
- * @namespace My.Namespace
- * @method myMethodName
- * @param {String} some string
- * @param {Object} some object
- * @return {bool} some bool
- */
 
 app.use(
   morgan('combined', {
@@ -35,7 +26,7 @@ app.use(
   }),
 );
 
-app.use(registerRouter);
+app.use(initalUserRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();

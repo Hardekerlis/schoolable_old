@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    # kubernetes.io/ingress.global-static-ip-name: "admin-dashboard"
+spec:
+  tls:
+    - secretName: ca-key-pair
+  rules:
+    - host: admin.schoolable.se
+      http:
+        paths:
+          - path: /api/setup/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-dashboard-srv
+                port:
+                  number: 3000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-dashboard-client-srv
+                port:
+                  number: 3000

@@ -5,31 +5,31 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  googleCloudBuild:
-    projectId: schoolable-295414
+  # googleCloudBuild:
+  #   projectId: schoolable-295414
   artifacts:
-    - image: us.gcr.io/schoolable-295414/auth
-      kaniko:
-          dockerfile: Dockerfile.dev
-          cache: {}
+    - image: gustafdahl/auth
+      # kaniko:
+      #     dockerfile: Dockerfile.dev
+      #     cache: {}
       context: auth
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/schoolable-295414/admin-dashboard
-      kaniko:
-          dockerfile: Dockerfile.dev
-          cache: {}
-      context: admin-dashboard
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
-    - image: us.gcr.io/schoolable-295414/admin-dashboard-client
-      kaniko:
-          dockerfile: Dockerfile.dev
-          cache: {}
+    # - image: gustafdahl/admin-dashboard
+    #   # kaniko:
+    #   #     dockerfile: Dockerfile.dev
+    #   #     cache: {}
+    #   context: admin-dashboard
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .
+    - image: gustafdahl/admin-dashboard-client
+      # kaniko:
+      #     dockerfile: Dockerfile.dev
+      #     cache: {}
       context: admin-dashboard-client
       sync:
         manual:

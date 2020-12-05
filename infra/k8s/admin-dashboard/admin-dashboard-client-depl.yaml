@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-dashboard-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-dashboard-client
+  template:
+    metadata:
+      labels:
+        app: admin-dashboard-client
+    spec:
+      containers:
+        - name: admin-dashboard-client
+          image: gustafdahl/admin-dashboard-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-dashboard-client-srv
+spec:
+  selector:
+    app: admin-dashboard-client
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP

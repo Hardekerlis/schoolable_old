@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/schoolable-295414/auth
+          image: gustafdahl/auth
       # emptydir: {}
         # - name: sidecar-container
           # image:
