@@ -4,4 +4,6 @@ singleQuote: true
 trailingComma: 'all'
 bracketSpacing: true
 insertPragma: true
-# requirePragma: true
+arrowParens: 'avoid'
+semi: true
+requirePragma: true

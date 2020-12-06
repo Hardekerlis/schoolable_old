@@ -25,7 +25,6 @@
     "@schoolable/common": "^1.5.6",
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.9",
-    "@types/express-validator": "^3.0.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.10.2",
     "@types/morgan": "^1.9.2",

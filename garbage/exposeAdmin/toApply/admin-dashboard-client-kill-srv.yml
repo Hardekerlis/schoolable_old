@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-dashboard-client-srv
+spec:
+  # externalIPs:
+  #   - 35.228.201.147
+  # type: LoadBalancer
+  selector:
+    app: admin-dashboard-client
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: https

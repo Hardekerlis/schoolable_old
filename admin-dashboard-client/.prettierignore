@@ -1,4 +1,6 @@
 tsconfig.json
 package.json
 package-lock.json
-build/
+build
+coverage
+node_modules/

@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+/** @format */
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import * as React from 'react';
+import { Admin, Resource } from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+import { UserList } from './components/index';
+
+// import { Trying } from './components/index';
+// <Trying bool='true' />
+
+const App = () => {
+	return (
+		<Admin dataProvider={ dataProvider }>
+			<Resource name='users' list={ UserList } />
+		</Admin>
+	);
+};
 
 export default App;
