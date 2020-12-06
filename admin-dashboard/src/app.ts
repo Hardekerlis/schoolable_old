@@ -29,6 +29,7 @@ app.use(
 app.use(initalUserRouter);
 
 app.all('*', async () => {
+  console.log('wtf');
   throw new NotFoundError();
 });
 

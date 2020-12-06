@@ -24,18 +24,21 @@ clear
 
 function expose {
   if [[ "$1" == "true" ]]; then # Exposing external IP admin-dashboard-client-srv
-    echo "${magenta}Exposing $deplName ${reset}"
-    kubectl apply -f "$basePath/admin-ingress-srv.yml";
-    echo "${magenta}Exposed $deplName ${reset}"
+    # echo "${white}Exposing $deplName "
+    echo "${magenta}$(kubectl apply -f "$basePath/admin-ingress-srv.yml")";
+    echo "${white}Configured $deplName ${reset}"
 
     echo ""
-    echo "Navigate to ${bold}${blackBg}${white}https://admin.schoolable.se${reset} in your browser and you should see the dashboard. If the dashboard isn't accessible run ${bold}${white}sh ./exposeAdmin.sh${reset} again";
+    echo "${bold}${white}Exposed the Admin dashboard${reset}";
+    echo "Navigate to ${bold}${blackBg}${white}https://admin.schoolable.se${reset} in your browser and you should see the dashboard.";
+    echo "If you can't access the dashboard run ${bold}${white}sh ./exposeAdmin.sh${reset} again"
     echo ""
 
   elif [[ "$1" == "false" ]]; then # Killing external IP for admin-dashboard-client-srv service
-    echo "${magenta}Deleting $deplName${reset}"
-    kubectl delete -f "$basePath/admin-ingress-srv.yml";
-    echo "${magenta}Deleted $deplName${reset}"
+    # echo "${white}Deleting $deplName${magenta}"
+
+    echo "${magenta}$(kubectl delete -f "$basePath/admin-ingress-srv.yml")";
+    echo "${white}Deleted $deplName${reset}"
 
     echo "";
     echo "${bold}${white}Closed access to the Admin dashboard${reset}";
@@ -52,43 +55,31 @@ authService="auth-srv";
 hasBeenSetup=$(echo $allServices | grep -w $authService);
 
 # This checks if the other services has been applied
-if [[ -z $hasBeenSetup ]]; then
+isExposed=$(kubectl get ingress admin-ingress-srv -o jsonpath='{.spec.rules[0].host}' --ignore-not-found 2>&1 | grep -i -v "Warn" | grep -i -v "Deprecat");
 
-  echo "${red}Cluster is not running${reset}";
+#       Length is 0        Lenght is greater than 0
+if [[ -z $hasBeenSetup ]] && [[ -z $isExposed ]]; then
+
+  echo "${red}${bold}${blackBg}Cluster is not running${reset}";
   echo "Please run ${bold}${blackBg}${white}sh ./startCluster.sh${reset} before running this again"
   exit;
 
 fi
 
-# isExposed=$(kubectl get ingress admin-ingress-srv -o jsonpath='{.spec.rules[0].host}' --ignore-not-found);
-isExposed=$(kubectl describe ingress admin-ingress-srv --ignore-not-found);
-echo "$isExposed"
 
 if [[ -z $isExposed ]]; then # If admin-dashboard-client-srv is not exposed it gets exposed
 
   echo ""
   echo "${white}${bold}Exposing Admin dashboard${reset} ${blue}($deplName)${reset}";
-  echo ""
   expose true;
 
 else # If admin-dashboard-client-srv is exposed it gets removed
 
   echo ""
   echo "${white}${bold}Closing access to Admin dashboard${reset} ${blue}($deplName)${reset}";
-  echo ""
   expose false;
 
 fi
-
-sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
 
 # -------------------------------------------------------------------------------
 # Dont know if I need this in the future
