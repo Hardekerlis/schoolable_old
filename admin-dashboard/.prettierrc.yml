@@ -1,7 +1,10 @@
 # @format
 
 singleQuote: true
+jsxSingleQuote: true
 trailingComma: 'all'
 bracketSpacing: true
-insertPragma: true
 # requirePragma: true
+insertPragma: true
+arrowParens: 'avoid'
+semi: true

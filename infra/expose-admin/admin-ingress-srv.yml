@@ -13,7 +13,7 @@ spec:
     - host: admin.schoolable.se
       http:
         paths:
-          - path: /api/setup/?(.*)
+          - path: /api/?(.*)
             pathType: Prefix
             backend:
               service:

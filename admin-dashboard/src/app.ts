@@ -12,25 +12,24 @@ import { initalUserRouter } from './routes/routes-collection';
 const app = express();
 
 app.use(
-  morgan('combined', {
-    stream: new LoggerStream(),
-  }),
+	morgan('combined', {
+		stream: new LoggerStream(),
+	}),
 );
 
 app.set('trust proxy', true);
 app.use(json());
 app.use(
-  cookieSession({
-    signed: false,
-    secure: process.env.NODE_ENV !== 'test',
-  }),
+	cookieSession({
+		signed: false,
+		secure: process.env.NODE_ENV !== 'test',
+	}),
 );
 
 app.use(initalUserRouter);
 
 app.all('*', async () => {
-  console.log('wtf');
-  throw new NotFoundError();
+	throw new NotFoundError();
 });
 
 app.use(errorHandler);
