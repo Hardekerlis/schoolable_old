@@ -1,0 +1,36 @@
+/** @format */
+
+.hjlasdhjkfdasjkhdaf {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.hkgdhgdjkhfggf {
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+}
+
+.asdjhasda {
+	display: block;
+	/* border-radius: 5px; */
+	border: none;
+	border-bottom: 1px solid var(--black);
+	background-color: var(--grey1);
+	height: 20px;
+	font-size: 16px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.asdjhasda:focus {
+	border: none;
+	outline: none;
+	background-color: var(--white);
+}
+
+.asdjhasda:hover {
+	background-color: var(--white);
+}

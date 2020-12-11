@@ -15,6 +15,9 @@ spec:
       containers:
         - name: auth
           image: gustafdahl/auth
+          env:
+            - name: MONGO_URI
+              value: mongodb://auth-mongo-srv:27017/auth
       # emptydir: {}
         # - name: sidecar-container
           # image:

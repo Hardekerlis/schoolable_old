@@ -41,9 +41,9 @@ build:
         dockerfile: Dockerfile.dev
       sync:
         manual:
-          - src: 'src/*'
+          - src: 'src/**/*'
             dest: .
-          - src: 'public/*'
-            dest: .
+          # - src: 'public/*'
+          #   dest: .
 # cluster:
 #   namespace: logging

@@ -53,3 +53,6 @@ to get password</br>
 ```cmd
 PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 ```
+
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=kjöasdjkasdkljdaskljasdkjlasdkljsad

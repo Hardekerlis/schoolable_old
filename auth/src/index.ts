@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 import { app } from './app';
-const start = () => {
+const start = async () => {
   const { env } = process;
   if (!env.appRoot) {
     // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
@@ -15,6 +15,21 @@ const start = () => {
   }
 
   process.env.NODE_ENV = !process.env.NODE_ENV ? 'dev' : process.env.NODE_ENV;
+
+  // if(!process.env.MONGO_URI) {
+  //     throw new Error('MONGO_URI must be defined');
+  //   };
+  //
+  //   try {
+  //     await mongoose.connect(process.env.MONGO_URI!, {
+  //       useNewUrlParser: true,
+  //       useUnifiedTopology: true,
+  //       useCreateIndex: true
+  //     });
+  //     console.log('Connected to MongoDB');
+  //   }catch(err) {
+  //     console.error(err);
+  //   }
 
   app.listen(3000, () => {
     if (process.env.NODE_ENV === 'dev') {

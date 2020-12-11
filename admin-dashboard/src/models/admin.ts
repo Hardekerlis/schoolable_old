@@ -2,10 +2,12 @@
 
 import mongoose from 'mongoose';
 
-interface AdminAttrs {
+export interface AdminAttrs {
 	email: string;
+	username: string;
 	phoneNr?: string;
-	publicKey: string;
+	publicKey?: string;
+	password: string;
 	name: {
 		first: string;
 		last: string;
@@ -18,8 +20,10 @@ interface AdminModel extends mongoose.Model<AdminDoc> {
 
 interface AdminDoc extends mongoose.Document {
 	email: string;
+	username: string;
 	phoneNr?: string;
-	publicKey: string;
+	publicKey?: string;
+	password: string;
 	name: {
 		first: string;
 		last: string;
@@ -29,6 +33,10 @@ interface AdminDoc extends mongoose.Document {
 const schema = new mongoose.Schema(
 	{
 		email: {
+			type: String,
+			required: true,
+		},
+		username: {
 			type: String,
 			required: true,
 		},
@@ -48,6 +56,11 @@ const schema = new mongoose.Schema(
 		},
 		publicKey: {
 			type: String,
+			required: false,
+			default: '',
+		},
+		password: {
+			type: String,
 			required: true,
 		},
 	},
@@ -57,7 +70,8 @@ const schema = new mongoose.Schema(
 				ret.id = ret._id;
 
 				delete ret._id;
-				delete ret.key;
+				delete ret.publicKey;
+				delete ret.password;
 			},
 		},
 	},
@@ -69,6 +83,6 @@ schema.statics.build = (attrs: AdminAttrs) => {
 	return new Admin(attrs);
 };
 
-const Admin = mongoose.model<AdminDoc>('admins', schema);
+const Admin = mongoose.model<AdminDoc, AdminModel>('admins', schema);
 
 export { Admin };

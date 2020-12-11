@@ -5,17 +5,28 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import morgan from 'morgan';
-import { NotFoundError, errorHandler, LoggerStream } from '@schoolable/common';
+import {
+	NotFoundError,
+	errorHandler,
+	LoggerStream,
+	currentUser,
+	winston,
+} from '@schoolable/common';
 
-import { initalUserRouter } from './routes/routes-collection';
+winston.testSetup();
+
+import {
+	getSetupTokenRouter,
+	createAdminRouter,
+} from './routes/routes-collection';
 
 const app = express();
 
-app.use(
-	morgan('combined', {
-		stream: new LoggerStream(),
-	}),
-);
+// app.use(
+// 	morgan('combined', {
+// 		stream: new LoggerStream(),
+// 	}),
+// );
 
 app.set('trust proxy', true);
 app.use(json());
@@ -26,7 +37,10 @@ app.use(
 	}),
 );
 
-app.use(initalUserRouter);
+app.use(currentUser);
+
+app.use(getSetupTokenRouter);
+app.use(createAdminRouter);
 
 app.all('*', async () => {
 	throw new NotFoundError();

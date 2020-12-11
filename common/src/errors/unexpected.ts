@@ -2,13 +2,13 @@
 
 import { CustomError } from './custom-error';
 
-export class BadRequestError extends CustomError {
+export class UnexpectedError extends CustomError {
   statusCode = 500;
 
   constructor(public message: string) {
     super(message);
 
-    Object.setPrototypeOf(this, BadRequestError.prototype);
+    Object.setPrototypeOf(this, UnexpectedError.prototype);
   }
 
   serializeErrors() {

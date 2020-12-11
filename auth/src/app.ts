@@ -20,11 +20,11 @@ const app = express();
  * @return {bool} some bool
  */
 
-app.use(
-  morgan('combined', {
-    stream: new LoggerStream(),
-  }),
-);
+// app.use(
+//   morgan('combined', {
+//     stream: new LoggerStream(),
+//   }),
+// );
 
 app.set('trust proxy', true);
 app.use(json());

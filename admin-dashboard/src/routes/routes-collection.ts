@@ -1,3 +1,4 @@
 /** @format */
 
-export * from './initalAdmin';
+export * from './createAdmin';
+export * from './getSetupToken';

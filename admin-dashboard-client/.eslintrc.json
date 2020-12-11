@@ -12,6 +12,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "root": true,
   "plugins": ["react"],
   "rules": {
     "indent": ["error", "tab"],

@@ -15,8 +15,8 @@ metadata:
     #   }
     # kubernetes.io/ingress.global-static-ip-name: "admin-dashboard"
 spec:
-  tls:
-    - secretName: ca-key-pair
+  # tls:
+  #   - secretName: ca-key-pair
   rules:
     - host: dev.schoolable.se
       http:

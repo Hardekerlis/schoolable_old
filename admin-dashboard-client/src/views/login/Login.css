@@ -1,0 +1,28 @@
+/** @format */
+
+:root {
+	--black: #000;
+	--white: #fff;
+	--grey1: #e6e6e6;
+	--grey2: #cccccc;
+	--grey3: #b3b3b3;
+	--grey4: #999999;
+	--grey5: #808080;
+	--grey6: #666666;
+	--grey7: #4d4d4d;
+}
+
+.loginContainer {
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--grey7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loginContainer .loginArea {
+	height: 300px;
+	width: 400px;
+	background-color: var(--grey3);
+}

@@ -17,7 +17,7 @@ bold=`tput bold`
 
 reset=`tput sgr0`
 
-deplName='admin-dashboard-client-srv';
+deplName='admin-ingress-srv';
 basePath="$(pwd)/infra/expose-admin";
 
 clear
