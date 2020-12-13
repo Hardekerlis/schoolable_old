@@ -1,0 +1,31 @@
+/** @format */
+
+.klgkjlgkljgak {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.klgkjlgkljgak button {
+	display: inline-block;
+	margin-top: 10px;
+	border: none;
+	background-color: transparent;
+	height: 30px;
+	width: 100px;
+	cursor: pointer;
+	transition: 0.1s;
+	background-color: var(--grey1);
+	border-radius: 2px;
+}
+
+.klgkjlgkljgak button:hover {
+	background-color: var(--grey6);
+	color: var(--grey2);
+}
+
+.klgkjlgkljgak button:focus {
+	border: none;
+	outline: none;
+}

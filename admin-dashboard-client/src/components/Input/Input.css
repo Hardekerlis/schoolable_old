@@ -1,21 +1,18 @@
 /** @format */
 
-.hjlasdhjkfdasjkhdaf {
+/* Parent div */
+.inputParent {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	width: 100%;
 }
 
-.hkgdhgdjkhfggf {
-	font-size: 14px;
-	font-weight: bold;
+/* Input */
+.inputParent .normalInput {
 	display: block;
-}
-
-.asdjhasda {
-	display: block;
-	/* border-radius: 5px; */
+	border-radius: 2px;
 	border: none;
 	border-bottom: 1px solid var(--black);
 	background-color: var(--grey1);
@@ -23,14 +20,18 @@
 	font-size: 16px;
 	text-align: center;
 	vertical-align: middle;
+	transition: 0.1s;
+	width: 80%;
 }
 
-.asdjhasda:focus {
+/* Input */
+.inputParent .normalInput:focus {
 	border: none;
 	outline: none;
 	background-color: var(--white);
 }
 
-.asdjhasda:hover {
+/* Input */
+.inputParent .normalInput:hover {
 	background-color: var(--white);
 }

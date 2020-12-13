@@ -1,0 +1,114 @@
+/** @format */
+
+.upload.icon {
+	margin: 0;
+}
+
+.fileInputParent {
+	position: relative;
+}
+
+.fileInputParent .fileInput {
+	height: 40px;
+}
+
+.fileInputParent .fileInput .file {
+	position: relative;
+	height: 40px;
+}
+
+.fileInputParent .fileInput .fakeFileInput {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+
+	height: 40px;
+	width: 100%;
+}
+
+.fileInputParent .fileInput .fakeFileInput input {
+	border: none;
+	outline: none;
+	height: 100%;
+	width: 100%;
+	border-radius: 10px;
+	border: 1px var(--grey2) dashed;
+	text-align: center;
+}
+
+.fileInputParent .fileInputShowcase {
+	width: 100%;
+	position: absolute;
+	padding: 5px;
+	border: 1px var(--grey2) dashed;
+	display: none;
+	margin-top: 10px;
+}
+
+/* .fileInputParent .fileInputShowcase p:first-of-type {
+	font-size: 17px;
+	font-weight: bold;
+	margin: 0;
+	margin-top: 5px;const removed =
+} */
+
+.fileInputParent .fileInputShowcase .showcaseChild {
+	width: 100%;
+	height: 20px;
+	background: var(--white);
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-top: 5px;
+}
+
+.fileInputParent .fileInputShowcase .showcaseChild:first-of-type {
+	margin: 0;
+}
+
+.fileInputParent .fileInputShowcase .showcaseChild p {
+	height: 100%;
+	margin: 0;
+	vertical-align: middle;
+	margin-left: 10px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+}
+
+.fileInputParent .fileInputShowcase .showcaseChild i {
+	position: absolute;
+	right: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	vertical-align: middle;
+	font-weight: normal;
+
+	margin: 0;
+	height: 100%;
+
+	cursor: pointer;
+}
+
+/* .fileInputParent .fileInputShowcase .showcaseChild i::after {
+	content: 'remove file: ' attr(data-fileName);
+	color: var(--white);
+	height: 20px;
+	width: 50px;
+	background-color: var(--black);
+	position: absolute;
+	bottom: -10px;
+	display: none;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.fileInputParent .fileInputShowcase .showcaseChild i:hover::after {
+	display: block;
+	opacity: 1;
+} */
