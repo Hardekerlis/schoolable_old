@@ -1,13 +1,13 @@
 /** @format */
 
-.klgkjlgkljgak {
+.SubmitButton {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.klgkjlgkljgak button {
+.SubmitButton button {
 	display: inline-block;
 	margin-top: 10px;
 	border: none;
@@ -20,12 +20,12 @@
 	border-radius: 2px;
 }
 
-.klgkjlgkljgak button:hover {
+.SubmitButton button:hover {
 	background-color: var(--grey6);
 	color: var(--grey2);
 }
 
-.klgkjlgkljgak button:focus {
+.SubmitButton button:focus {
 	border: none;
 	outline: none;
 }

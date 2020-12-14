@@ -6,9 +6,10 @@ import { Input, Submit, FileInput } from '../../components/index';
 
 import './Login.css';
 
-const loginSubmit = event => {
+const loginSubmit = async event => {
 	event.preventDefault();
-	console.log('Submit');
+	const rsaFile = await document.getElementById('RSAfile').files[0].text();
+	console.log(rsaFile);
 };
 
 /* Possible props:
@@ -21,24 +22,22 @@ export const Login = () => {
 		<div className='loginContainer'>
 			<div className='loginArea'>
 				<form id='loginForm' onSubmit={ loginSubmit }>
+					<Input id='username' placeholder='Username' type='text' />
 					<FileInput
 						placeholder='Drop key here or click to upload'
-						type='file'
 						id='RSAfile'
-						multiple
+						style={ { backgroundColor: 'var(--grey1)' } }
 					/>
+					<Submit text='Login' />
 				</form>
 			</div>
 		</div>
 	);
 };
-// style={ { marginTop: '10px' } }
-
-// <Input id='username' placeholder='Username' type='text' />
 // <Input
-// 	id='password'
-// 	placeholder='Password'
-// 	type='password'
-// 	style={ { marginTop: '10px' } }
-// 	/>
-// <Submit text='Login' />
+// id='password'
+// placeholder='Password'
+// type='password'
+// style={ { marginTop: '10px' } }
+// />
+// style={ { marginTop: '10px' } }

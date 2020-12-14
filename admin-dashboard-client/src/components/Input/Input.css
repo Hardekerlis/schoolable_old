@@ -12,16 +12,17 @@
 /* Input */
 .inputParent .normalInput {
 	display: block;
-	border-radius: 2px;
+	border-radius: 5px;
 	border: none;
-	border-bottom: 1px solid var(--black);
+	/* border-bottom: 1px solid var(--black); */
 	background-color: var(--grey1);
-	height: 20px;
+	/* height: 20px; */
 	font-size: 16px;
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.1s;
 	width: 80%;
+	padding: 5px;
 }
 
 /* Input */

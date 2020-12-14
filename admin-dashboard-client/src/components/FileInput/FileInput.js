@@ -5,14 +5,15 @@ import React, { useState, useEffect } from 'react';
 import { Showcase } from './Showcase';
 import './FileInput.css';
 
-// const fileUploaded = event => {
-// 	const showcase = document.getElementById('fileInputShowcase');
-// 	const input = event.target;
-// 	showcase.innerHTML = <Showcase value={ input.value } />;
-// };
+/**
+ * Custom styled file input
+ * @method FileInput
+ * @Prop {bool} Pass multiple as prop and the file input will support multiple files
+ * @Prop {string} Pass a string to placeholder as a prop to give the input a placeholder
+ * @Prop {string} Pass a string to id as a prop to give the input an id
+ */
 
 export const FileInput = props => {
-	// const [showcase, setShowcase] = useState([]);
 	const [files, setFiles] = useState([]);
 	useEffect(() => {
 		if (!props.multiple && files.length > 1) {
@@ -27,40 +28,48 @@ export const FileInput = props => {
 	});
 
 	const removeFile = event => {
-		let index = event.target.parentNode.getAttribute('data-indfilesex');
-		const showcaseChildren = document.getElementById('fileInputShowcase')
-			.children;
+		let index = event.target.parentNode.getAttribute('data-index');
 
-		// showcaseChildren[index].remove();
-		console.log(files);
-		// files.pop();
-		// setFiles(files);
-		// setFiles([...files]);
-		// let index = event.target.value.split('\\');
-		// index = index[index.length - 1];
-		//
-		// console.log(files);
-		// files.splice(index);
-		//
-		// setFiles([...files]);
+		let fileName = document.getElementById(props.id).value.split('\\');
+		fileName = fileName[fileName.length - 1];
+
+		if (event.target.parentNode.children[0].innerHTML === fileName) {
+			document.getElementById(props.id).value = '';
+		}
+
+		let i = -1;
+		setFiles(
+			files.filter(file => {
+				i++;
+				return i !== parseInt(index);
+			}),
+		);
 	};
-	// entry={ `${event.target.value}\\${files.length}` }
 
 	const addFile = event => {
-		setFiles([
-			...files,
-			<Showcase
-				value={ event.target.value }
-				key={ event.target.value + files.length }
-				removeFile={ removeFile }
-				index={ files.length }
-			/>,
-		]);
+		setFiles([...files, event.target.value]);
+	};
+
+	const showcaseFile = () => {
+		let returnElems = [];
+		let i = 0;
+		for (let file of files) {
+			returnElems.push(
+				<Showcase
+					value={ file }
+					key={ file + files.length }
+					removeFile={ removeFile }
+					index={ i }
+				/>,
+			);
+			i++;
+		}
+
+		return <>{ returnElems }</>;
 	};
 
 	return (
-		<div className='fileInputParent' style={ props.style }>
-			{ props.label ? <label htmlFor={ props.id }>{ props.label }</label> : '' }
+		<div className='fileInputParent'>
 			<div className='fileInput'>
 				<input
 					id={ props.id }
@@ -70,7 +79,11 @@ export const FileInput = props => {
 					multiple={ props.multiple ? true : false }
 				/>
 				<div className='fakeFileInput noselect'>
-					<input type='text' placeholder={ props.placeholder } />
+					<input
+						style={ props.style }
+						type='text'
+						placeholder={ props.placeholder }
+					/>
 				</div>
 			</div>
 
@@ -82,10 +95,8 @@ export const FileInput = props => {
 			) }
 
 			<div id='fileInputShowcase' className='fileInputShowcase'>
-				{ files }
+				{ showcaseFile() }
 			</div>
 		</div>
 	);
 };
-// <i className='upload icon'></i>
-// { files.length >= 1 ? <p>Files</p> : '' }

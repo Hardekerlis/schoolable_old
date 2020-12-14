@@ -6,7 +6,7 @@ import './Submit.css';
 
 export const Submit = props => {
 	return (
-		<div className='klgkjlgkljgak'>
+		<div className='SubmitButton'>
 			<button>{ props.text }</button>
 		</div>
 	);

@@ -6,15 +6,25 @@
 
 .fileInputParent {
 	position: relative;
+	width: 80%;
+	margin: auto;
+	margin-top: 10px;
+
+	/* background-color: var(--grey2);
+	border-radius: 5px;
+	padding: 5px; */
 }
 
 .fileInputParent .fileInput {
 	height: 40px;
+	/* margin-top: 5px; */
 }
 
 .fileInputParent .fileInput .file {
 	position: relative;
 	height: 40px;
+	width: 100%;
+	cursor: pointer;
 }
 
 .fileInputParent .fileInput .fakeFileInput {
@@ -34,17 +44,18 @@
 	height: 100%;
 	width: 100%;
 	border-radius: 10px;
-	border: 1px var(--grey2) dashed;
+	border: 1px var(--grey4) dashed;
 	text-align: center;
 }
 
 .fileInputParent .fileInputShowcase {
 	width: 100%;
-	position: absolute;
+	/* position: absolute; */
 	padding: 5px;
 	border: 1px var(--grey2) dashed;
+	border-radius: 5px;
 	display: none;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 /* .fileInputParent .fileInputShowcase p:first-of-type {
@@ -62,6 +73,7 @@
 	align-items: center;
 	position: relative;
 	margin-top: 5px;
+	border-radius: 5px;
 }
 
 .fileInputParent .fileInputShowcase .showcaseChild:first-of-type {
