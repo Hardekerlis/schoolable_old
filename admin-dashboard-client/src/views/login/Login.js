@@ -1,15 +1,34 @@
 /** @format */
 
 import React from 'react';
+import crypto from 'crypto';
+import { Buffer } from 'buffer/';
+
+console.log(crypto);
 
 import { Input, Submit, FileInput } from '../../components/index';
 
 import './Login.css';
 
+import { get, post } from '../../api/api';
+
 const loginSubmit = async event => {
 	event.preventDefault();
-	const rsaFile = await document.getElementById('RSAfile').files[0].text();
-	console.log(rsaFile);
+	try {
+		const rsaKey = await document.getElementById('RSAfile').files[0].text();
+		// console.log(rsaKey);
+		const { token } = (await get({ path: '/api/rsa/data' })).data;
+
+		const signature = crypto.Sign('sha256', Buffer.from(token), {
+			key: rsaKey,
+			padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+		});
+
+		console.log(signature);
+	} catch (err) {
+		console.log(err);
+		return;
+	}
 };
 
 /* Possible props:

@@ -14,12 +14,7 @@ router.get('/api/setup/token', async (req: Request, res: Response) => {
 	console.log(acc);
 
 	if (!acc[0]) {
-		const token = jwt.sign(
-			{
-				type: 'setup',
-			},
-			process.env.JWT_KEY!,
-		);
+		const token = jwt.sign({ type: 'setup' }, process.env.JWT_KEY!);
 
 		req.session = {
 			jwt: token,

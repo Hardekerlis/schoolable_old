@@ -18,6 +18,7 @@ winston.testSetup();
 import {
 	getSetupTokenRouter,
 	createAdminRouter,
+	rsaRouter,
 } from './routes/routes-collection';
 
 const app = express();
@@ -40,6 +41,7 @@ app.use(
 app.use(currentUser);
 
 app.use(getSetupTokenRouter);
+app.use(rsaRouter);
 app.use(createAdminRouter);
 
 app.all('*', async () => {

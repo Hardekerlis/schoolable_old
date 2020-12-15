@@ -8,13 +8,14 @@ import './FileInput.css';
 /**
  * Custom styled file input
  * @method FileInput
- * @Prop {bool} Pass multiple as prop and the file input will support multiple files
- * @Prop {string} Pass a string to placeholder as a prop to give the input a placeholder
- * @Prop {string} Pass a string to id as a prop to give the input an id
+ * @prop {bool} Pass multiple as prop and the file input will support multiple files
+ * @prop {string} Pass a string to placeholder as a prop to give the input a placeholder
+ * @prop {string} Pass a string to id as a prop to give the input an id
  */
 
 export const FileInput = props => {
 	const [files, setFiles] = useState([]);
+	// eslint-disable-next-line
 	useEffect(() => {
 		if (!props.multiple && files.length > 1) {
 			setFiles([files[files.length - 1]]);
@@ -39,7 +40,7 @@ export const FileInput = props => {
 
 		let i = -1;
 		setFiles(
-			files.filter(file => {
+			files.filter(() => {
 				i++;
 				return i !== parseInt(index);
 			}),
@@ -47,6 +48,7 @@ export const FileInput = props => {
 	};
 
 	const addFile = event => {
+		if (event.target.value === '') {return;}
 		setFiles([...files, event.target.value]);
 	};
 
