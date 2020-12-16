@@ -10,4 +10,4 @@ schoolable.wiki
 .DS_Store
 .eslintcache
 
-.keys/
+.keys/*.pem
