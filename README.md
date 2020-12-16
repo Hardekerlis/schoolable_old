@@ -55,4 +55,4 @@ PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data
 ```
 
 
-kubectl create secret generic jwt-secret --from-literal=JWT_KEY=kjöasdjkasdkljdaskljasdkjlasdkljsad
+kubectl create secret generic admin-jwt-secret --from-literal=ADMIN_JWT_KEY=kjöasdjkasdkljdaskljasdkjlasdkljsad

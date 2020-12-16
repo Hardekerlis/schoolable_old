@@ -39,7 +39,7 @@ router.post(
 
     // Respond with 201 and user
 
-    console.log('assd');
+    // console.log('assd');
     res.send({ success: true });
   },
 );
