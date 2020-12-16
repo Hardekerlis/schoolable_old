@@ -21,7 +21,7 @@ router.get('/api/rsa', async (req: Request, res: Response) => {
 router.post('/api/rsa', async (req: Request, res: Response) => {
 	const { signature, token } = req.body;
 
-	// console.log(sessions, token);
+	console.log(sessions, token);
 
 	if (!sessions[token]) {
 		res.send({
