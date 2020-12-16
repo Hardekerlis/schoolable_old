@@ -9,3 +9,5 @@ coverage
 schoolable.wiki
 .DS_Store
 .eslintcache
+
+.keys/
