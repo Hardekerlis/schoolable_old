@@ -2,6 +2,13 @@
 
 import mongoose from 'mongoose';
 
+import { Password } from '../services/password';
+
+enum AuthType {
+	Pki = 'pki', // public key infrastructure
+	Pass = 'password',
+}
+
 export interface AdminAttrs {
 	email: string;
 	username: string;
@@ -76,6 +83,13 @@ const schema = new mongoose.Schema(
 		},
 	},
 );
+
+schema.pre('save', async function () {
+	if (this.isModified('password')) {
+		const hashed = await Password.toHash(this.get('password'));
+		this.set('password', hashed);
+	}
+});
 
 schema.statics.build = (attrs: AdminAttrs) => {
 	// Logic to check key pair.

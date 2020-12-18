@@ -17,7 +17,6 @@
 
 .fileInputParent .fileInput {
 	height: 40px;
-	/* margin-top: 5px; */
 }
 
 .fileInputParent .fileInput .file {
@@ -30,6 +29,7 @@
 .fileInputParent .fileInput .fakeFileInput {
 	display: flex;
 	align-items: center;
+
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -48,24 +48,15 @@
 	text-align: center;
 }
 
-.fileInputParent .fileInputShowcase {
+.fileInputParent .fileInputPreview {
 	width: 100%;
-	/* position: absolute; */
 	padding: 5px;
 	border: 1px var(--grey2) dashed;
 	border-radius: 5px;
-	display: none;
 	margin-top: 5px;
 }
 
-/* .fileInputParent .fileInputShowcase p:first-of-type {
-	font-size: 17px;
-	font-weight: bold;
-	margin: 0;
-	margin-top: 5px;const removed =
-} */
-
-.fileInputParent .fileInputShowcase .showcaseChild {
+.fileInputParent .fileInputPreview .previewChild {
 	width: 100%;
 	height: 20px;
 	background: var(--white);
@@ -76,11 +67,11 @@
 	border-radius: 5px;
 }
 
-.fileInputParent .fileInputShowcase .showcaseChild:first-of-type {
+.fileInputParent .fileInputPreview .previewChild:first-of-type {
 	margin: 0;
 }
 
-.fileInputParent .fileInputShowcase .showcaseChild p {
+.fileInputParent .fileInputPreview .previewChild p {
 	height: 100%;
 	margin: 0;
 	vertical-align: middle;
@@ -90,7 +81,7 @@
 	align-items: center;
 }
 
-.fileInputParent .fileInputShowcase .showcaseChild i {
+.fileInputParent .fileInputPreview .previewChild i {
 	position: absolute;
 	right: 10px;
 
@@ -106,21 +97,3 @@
 
 	cursor: pointer;
 }
-
-/* .fileInputParent .fileInputShowcase .showcaseChild i::after {
-	content: 'remove file: ' attr(data-fileName);
-	color: var(--white);
-	height: 20px;
-	width: 50px;
-	background-color: var(--black);
-	position: absolute;
-	bottom: -10px;
-	display: none;
-	opacity: 0;
-	transition: opacity 0.2s;
-}
-
-.fileInputParent .fileInputShowcase .showcaseChild i:hover::after {
-	display: block;
-	opacity: 1;
-} */

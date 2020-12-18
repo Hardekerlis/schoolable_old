@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Showcase } from './Showcase';
+import { Preview } from './Preview';
+import { useToggle } from '../../hooks/useToggle';
 import './FileInput.css';
 
 /**
@@ -13,53 +14,78 @@ import './FileInput.css';
  * @prop {string} Pass a string to id as a prop to give the input an id
  */
 
+const r = Math.random().toString(36).substring(7);
 export const FileInput = props => {
+	// Files are the currently selected files
 	const [files, setFiles] = useState([]);
-	// eslint-disable-next-line
+	const [showPreview, toggleShowPreview] = useToggle(false);
+
 	useEffect(() => {
+		// If the multiple prop is false or undefined more than one file shouldn't be allowed to be selected
 		if (!props.multiple && files.length > 1) {
 			setFiles([files[files.length - 1]]);
 		}
 
-		if (files.length > 0) {
-			document.getElementById('fileInputShowcase').style.display = 'block';
-		} else if (files.length === 0) {
-			document.getElementById('fileInputShowcase').style.display = 'none';
+		// Whether to show preview element or not
+		if (files.length > 0 && !showPreview) {
+			toggleShowPreview();
+		} else if (files.length === 0 && showPreview) {
+			toggleShowPreview();
 		}
+
+		// Append current selected files to mock input.
+		// The selected files are stored in state
+		const mockInput = document.getElementById(r);
+		mockInput.fileListArr = files;
 	});
 
-	const removeFile = event => {
-		let index = event.target.parentNode.getAttribute('data-index');
+	// Remove the specified file from preview and mock file input
+	const removeFile = async event => {
+		const index = event.target.parentNode.getAttribute('data-index');
+		const fileListArr = document.getElementById(r).fileListArr;
 
-		let fileName = document.getElementById(props.id).value.split('\\');
-		fileName = fileName[fileName.length - 1];
+		// Not beautiful code.
+		// Refactor!
+		let i = -1;
+		// Loop through selected files and check if i is equal to the index of the file to deselect
+		const _fileListArr = fileListArr.filter(() => {
+			i++;
+			return i !== parseInt(index);
+		});
 
-		if (event.target.parentNode.children[0].innerHTML === fileName) {
-			document.getElementById(props.id).value = '';
+		// Update state to desired files
+		setFiles(_fileListArr);
+	};
+
+	// Add the selected files to both preview and mock file input
+	const addFile = event => {
+		const fileList = event.target.files; // Get FileList object from input
+		const fileListArr = Array.from(fileList); // Make object into array
+
+		// Check if any index is undefined or name isn't present
+		for (const _file of fileListArr) {
+			if (_file === undefined || _file.name === '') {
+				return;
+			}
 		}
 
-		let i = -1;
-		setFiles(
-			files.filter(() => {
-				i++;
-				return i !== parseInt(index);
-			}),
-		);
+		event.target.value = '';
+
+		// Update the state to update the compnent to view the files
+		setFiles(fileListArr);
 	};
 
-	const addFile = event => {
-		if (event.target.value === '') {return;}
-		setFiles([...files, event.target.value]);
-	};
-
-	const showcaseFile = () => {
+	const previewFiles = () => {
 		let returnElems = [];
+
+		// Excellent code! xd
+		// Refactor!
 		let i = 0;
 		for (let file of files) {
 			returnElems.push(
-				<Showcase
-					value={ file }
-					key={ file + files.length }
+				<Preview
+					fileName={ file.name }
+					key={ file.name + i }
 					removeFile={ removeFile }
 					index={ i }
 				/>,
@@ -70,10 +96,15 @@ export const FileInput = props => {
 		return <>{ returnElems }</>;
 	};
 
+	if (!props.name) {
+		throw new Error('Please specify a name for the input');
+	}
+
 	return (
-		<div className='fileInputParent'>
+		<div className='fileInputParent' data-type='input'>
 			<div className='fileInput'>
 				<input
+					name={ props.name }
 					id={ props.id }
 					className='hidden zindex2 file'
 					type='file'
@@ -85,20 +116,25 @@ export const FileInput = props => {
 						style={ props.style }
 						type='text'
 						placeholder={ props.placeholder }
+						name={ props.name + '-fake' }
+						data-type='file'
+						id={ r }
 					/>
 				</div>
 			</div>
-
 			{ /* Add logic for reset button */ }
 			{ props.resetButton ? (
 				<button onClick={ () => console.log('remove key') }>Remove key</button>
 			) : (
 				''
 			) }
-
-			<div id='fileInputShowcase' className='fileInputShowcase'>
-				{ showcaseFile() }
-			</div>
+			{ showPreview ? (
+				<div id='fileInputPreview' className='fileInputPreview'>
+					{ previewFiles() }
+				</div>
+			) : (
+				''
+			) }
 		</div>
 	);
 };

@@ -2,23 +2,39 @@
 
 import React from 'react';
 // import { Admin } from 'react-admin';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import {
+	BrowserRouter,
+	Route,
+	Redirect,
+	Switch,
+	useHistory,
+	useLocation,
+} from 'react-router-dom';
 
-import { Login } from './views';
+import { Dashboard, Login } from './views';
 
 import './App.css';
 
 console.log(
 	'Go to https://github.com/Hardekerlis/reactAdminExample for reference',
 );
+
+const PrivateRoute = () => {};
+
+const LoginPage = () => {
+	let history = useHistory();
+	let location = useLocation();
+};
+
 function App() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route path='/' name='login' component={ Login } />
+				<Route path='/' name='Login' component={ Login } />
 			</Switch>
 		</BrowserRouter>
 	);
 }
+// <Route path='/' name='Dashboard' component={ Dashboard } />
 
 export default App;

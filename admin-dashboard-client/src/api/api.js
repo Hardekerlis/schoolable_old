@@ -7,7 +7,6 @@ import axios from 'axios';
 // });
 
 export const get = async ({ path, headers, params }) => {
-	// console.log(path);
 	const res = await axios.get(path, params, {
 		params,
 		headers,

@@ -28,6 +28,20 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: relative;
+}
+
+.loginContainer .loginArea form {
+	position: relative;
+}
+
+.loginContainer .loginArea .loginError {
+	position: absolute;
+	width: 100%;
+	color: red;
+	top: -40px;
+	text-align: center;
+	/* left: auto; */
 }
 
 /* .loginContainer .loginArea form {

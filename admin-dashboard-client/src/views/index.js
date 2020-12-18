@@ -1,3 +1,4 @@
 /** @format */
 
-export * from './login/Login';
+export * from './Login/Login';
+export * from './Dashboard/Dashboard';

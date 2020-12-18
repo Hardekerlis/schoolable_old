@@ -19,6 +19,7 @@ import {
 	getSetupTokenRouter,
 	createAdminRouter,
 	rsaRouter,
+	signinRouter,
 } from './routes/routes-collection';
 
 const app = express();
@@ -30,7 +31,7 @@ const app = express();
 // );
 
 app.set('trust proxy', true);
-app.use(json());
+app.use(json({ limit: '100kb' }));
 app.use(
 	cookieSession({
 		signed: false,
@@ -40,6 +41,7 @@ app.use(
 
 app.use(currentUser);
 
+app.use(signinRouter);
 app.use(getSetupTokenRouter);
 app.use(rsaRouter);
 app.use(createAdminRouter);
