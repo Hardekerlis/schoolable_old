@@ -70,8 +70,8 @@ export const Login = () => {
 
 		const { username, password } = await getFormData(form);
 
-		const res = await post({
-			path: '/api/users/signin',
+		const { res, err } = await post({
+			url: '/api/users/signin',
 			data: { username, password },
 		});
 
@@ -79,19 +79,22 @@ export const Login = () => {
 		// 	setToggleLoader();
 		// 	console.log(toggleLoader);
 		// }, 2000);
-		if (!res.data.session) {
-			console.log('No session');
-		} else if (res.data.session) {
-			console.log(res.data.session);
-			setSession(res.data.session);
-			togglePki();
-		} else {
-			console.log('Unexpected Error');
+		try {
+			console.log(res);
+			if (!res.data.session) {
+				console.log('No session');
+			} else if (res.data.session) {
+				console.log(res.data.session);
+				setSession(res.data.session);
+				togglePki();
+			}
+		} catch (err) {
+			console.log('Unexpected Error', err);
 		}
 
 		// const res = post("/api/users/signin", )
 
-		// const { token } = (await get({ path: '/api/rsa' })).data;
+		// const { token } = (await get({ url: '/api/rsa' })).data;
 		// const tokenBuff = Buffer.from(token);
 		//
 		// try {
@@ -108,7 +111,7 @@ export const Login = () => {
 		// 	);
 		//
 		// 	const res = await post({
-		// 		path: '/api/rsa',
+		// 		url: '/api/rsa',
 		// 		data: {
 		// 			signature,
 		// 			token,
@@ -133,7 +136,7 @@ export const Login = () => {
 	};
 
 	const getSignature = async file => {
-		const tokenBuff = Buffer.from('session');
+		const tokenBuff = Buffer.from(session);
 
 		try {
 			const privatePem = await file.text();
@@ -172,14 +175,17 @@ export const Login = () => {
 		const signature = bufferToHex(await getSignature(FileList[0]));
 		console.log(signature);
 
-		const res = await post({
-			path: '/api/rsa',
+		const { res, err } = await post({
+			url: '/api/rsa',
 			data: { signature, session },
 		});
-		console.log(res);
+
+		if (err) {
+			console.log(err);
+		}
 
 		// const res = await post({
-		// 		path: '/api/rsa',
+		// 		url: '/api/rsa',
 		// 		data: {
 		// 			signature,
 		// 			token,

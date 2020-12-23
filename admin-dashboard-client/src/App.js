@@ -1,7 +1,6 @@
 /** @format */
 
 import React from 'react';
-// import { Admin } from 'react-admin';
 import {
 	BrowserRouter,
 	Route,
@@ -10,6 +9,8 @@ import {
 	useHistory,
 	useLocation,
 } from 'react-router-dom';
+
+// import buildClient from '../api/build-client';
 
 import { Dashboard, Login } from './views';
 

@@ -33,7 +33,7 @@ router.post(
 		// @ts-ignore
 		const { user } = req;
 
-		console.log('Sessions:', sessions);
+		// console.log('Sessions:', sessions);
 
 		const passwordsMatch = await Password.compare(user.password, password);
 
@@ -57,7 +57,7 @@ router.post(
 				remove: setTimeout(function () {
 					// @ts-ignore
 					delete sessions[session.id];
-				}, 1000 * 30),
+				}, 1000 * 1),
 			};
 
 			// @ts-ignore
